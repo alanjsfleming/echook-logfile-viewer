@@ -1,4 +1,5 @@
 import React, {useRef,useEffect, useState} from 'react'
+import Telemetry from './Telemetry'
 
 export default function TrackRender(props) {
     // comment this thing!!!
@@ -46,12 +47,12 @@ export default function TrackRender(props) {
     },[currentData])
 
 
-    const draw = (ctx,canvas) => {
-        ctx.fillstyle='#00000'
-        ctx.moveTo(canvas.width/2,canvas.height/2);
-        ctx.lineTo(0,200);
-        ctx.stroke();
-    }
+    //const draw = (ctx,canvas) => {
+    //    ctx.fillstyle='#00000'
+    //    ctx.moveTo(canvas.width/2,canvas.height/2);
+    //    ctx.lineTo(0,200);
+    //    ctx.stroke();
+    //}
 
  
     // draw updated track
@@ -66,10 +67,14 @@ export default function TrackRender(props) {
     },[props.data])
 
   return (
+    <>
     <div class="render-container">
       <canvas class="render-layer1" ref={canvasRef}  {...props}/> 
       <canvas class="render-layer2" ref={canvasLayer2Ref} {...props}/>
     </div>
-    
+    <div class="telemetry-container">
+    <Telemetry telemetry={currentData}/>
+    </div>
+    </>
   )
 }
