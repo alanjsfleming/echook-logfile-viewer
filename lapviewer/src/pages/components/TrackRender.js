@@ -11,9 +11,11 @@ export default function TrackRender(props) {
 
     const drawTrack = (ctx,canvas,data) => {
         ctx.fillstyle='#00000'
-        console.log(props.data)
+        // make sure it doesnt try draw when no data
         if (props.data.length>0) {
+        // initial data point 
         const originCoords = [(canvas.width/2+data[0]["renderX"]*canvas.width),(canvas.height/2-data[0]["renderY"]*canvas.height)]
+        // move cursor to initial point,
         ctx.moveTo(originCoords[0],originCoords[1])
         data.forEach(item => {setTimeout(
           function(){
@@ -21,7 +23,7 @@ export default function TrackRender(props) {
           const coords = [(canvas.width/2+item["renderX"]*canvas.width),(canvas.height/2-item["renderY"]*canvas.height)]
           ctx.lineTo(coords[0],[coords[1]])
           ctx.stroke()
-        },1000)
+        },5)
         })
         // the set interval doesnt work because react doesnt like it!!
       }
@@ -33,7 +35,6 @@ export default function TrackRender(props) {
       const coords2 = [(canvas2.width/2+item["renderX"]*canvas2.width),(canvas2.height/2-item["renderY"]*canvas2.height)]
       ctx2.fillstyle='#FF0000'
       ctx2.fillRect(coords2[0]-10,coords2[1]-10,20,20)
-      console.log(coords2)
     }
 
     useEffect(()=> {
@@ -68,12 +69,18 @@ export default function TrackRender(props) {
 
   return (
     <>
-    <div class="render-container">
-      <canvas class="render-layer1" ref={canvasRef}  {...props}/> 
-      <canvas class="render-layer2" ref={canvasLayer2Ref} {...props}/>
-    </div>
-    <div class="telemetry-container">
-    <Telemetry telemetry={currentData}/>
+    <div class="container-fluid">
+      <div class="row">
+       <div class="col-8">
+          <canvas class="render-layer1" ref={canvasRef}  {...props} width="800" height="800"/> 
+          <canvas class="render-layer2" ref={canvasLayer2Ref} {...props} width="800" height="800"/>
+        </div>
+        <div class="col-4">
+        <div class="telemetry-container">
+          <Telemetry telemetry={currentData}/>
+        </div>
+        </div>
+      </div>
     </div>
     </>
   )

@@ -128,7 +128,7 @@ export default function FileUpload(props) {
        
             // scale = distance/furthest (turns out its not because that warps it like a lens)
             const scale = props.renderParams['scale']
-            console.log(distance,scale)
+            console.log(dX,dY,distance,scale)
             
             // dX * scale = scaledX
             // dY * scale = scaledY
@@ -149,7 +149,7 @@ export default function FileUpload(props) {
         <label for="file">Upload eChook Logfile: </label>
         <input type="file" id="lapData" name="file" accept=".csv" onChange={changeHandler}/> 
     </form>
-    <TrackRender id="trackCanvas" renderParams={props.renderParams} data={dataPoints} width={window.innerHeight*0.85} height={window.innerHeight*0.85}/>
+    <TrackRender id="trackCanvas" renderParams={props.renderParams} data={dataPoints}/>
     </>
   )
 }

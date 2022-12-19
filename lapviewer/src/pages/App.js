@@ -1,6 +1,6 @@
 import FileUpload from './components/FileUpload';
 import '../App.css';
-import TrackRender from './components/TrackRender';
+
 import { useState } from 'react';
 
 function App() {
@@ -17,7 +17,7 @@ function App() {
 
 
     <>
-    <h1>eChook race visualiser</h1>
+    <h3>eChook race visualiser</h3>
     <div class="parameters">
 
       <label for="scale">Scale</label>
