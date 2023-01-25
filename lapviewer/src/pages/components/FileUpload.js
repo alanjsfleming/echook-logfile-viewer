@@ -1,13 +1,15 @@
 import React, { useEffect, useState } from 'react'
 import Papa from 'papaparse'
 import TrackRender from './TrackRender';
-
+import GraphPanel from './GraphPanel';
 
 export default function FileUpload(props) {
     const [dataPoints,changeDataPoints] = useState([])
-
+    const [fileSelected,setFileSelected] = useState(false)
     // function to parse csv file and returns json object.
     const changeHandler = (event) => {
+        setFileSelected(true)
+        document.getElementById('trackCanvas').scrollIntoView()
         Papa.parse(event.target.files[0], {
             header:true,
             skipEmptyLines:true,
@@ -128,8 +130,7 @@ export default function FileUpload(props) {
        
             // scale = distance/furthest (turns out its not because that warps it like a lens)
             const scale = props.renderParams['scale']
-            console.log(dX,dY,distance,scale)
-            
+        
             // dX * scale = scaledX
             // dY * scale = scaledY
             const scaledX = dX * scale 
@@ -143,9 +144,12 @@ export default function FileUpload(props) {
         return data
     }
 
+   
+    
+
   return (
     <>
-    <form>
+    <form hidden={fileSelected}>
         <label for="file">Upload eChook Logfile: </label>
         <input type="file" id="lapData" name="file" accept=".csv" onChange={changeHandler}/> 
     </form>

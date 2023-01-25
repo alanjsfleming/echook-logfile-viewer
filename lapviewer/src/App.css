@@ -21,8 +21,12 @@
   z-index: 1;
 }
 
+.seeking-container {
+  
+}
+
 .telemetry-container {
-  /*float: right;*/
+  width:40vw
 }
 
 .card {
@@ -30,13 +34,14 @@
   width:100%;
   padding:0.5rem;
   font-size:1.5rem;
+  text-align: center;
 }
 
 
 /* Gauges */
 
 .gauge-holder {
-  width:90%;
+  width:100%;
   margin:auto;
   margin-top: 3%;
 }
