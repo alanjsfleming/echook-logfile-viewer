@@ -23,9 +23,9 @@ export default function Telemetry2(props) {
 
  
 
-    <TelemetryCard title={'Battery Temperature'} data={props.telemetry['Temp1 (C)']} units={'C'} kind={'gauge'} />
+    <TelemetryCard title={'Temp1'} data={props.telemetry['Temp1 (C)']} units={'C'} kind={'gauge'} />
 
-    <TelemetryCard title={'Motor Temperature'} data={props.telemetry['Temp2 (C)']} units={'C'} kind={'gauge'}/>
+    <TelemetryCard title={'Temp2'} data={props.telemetry['Temp2 (C)']} units={'C'} kind={'gauge'}/>
     </>
   )
 }

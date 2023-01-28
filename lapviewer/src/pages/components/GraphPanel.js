@@ -1,31 +1,36 @@
-import React, { useState }from 'react'
+import React, { useState, useEffect }from 'react'
 import { LineChart,Legend, Line, CartesianGrid,XAxis,YAxis,ReferenceLine } from 'recharts'
 
 
 
 export default function GraphPanel(props) {
-  console.log(props.progress)
+  
   
   const [graphShow,setGraphShow] = useState(
     {
-      inputThrottle:false,
+      inputThrottle:true,
       volts:false,
-      auxVolts:false,
-      amps:false,
-      ampHours:false,
-      motorSpeed:false,
+      auxVolts:true,
+      amps:true,
+      ampHours:true,
+      motorSpeed:true,
       speed:false,
       distance:true,
       temp1:true,
       temp2:true,
-      gearRatio:false,
-      gear:false,
-      efficiency:false
+      gearRatio:true,
+      gear:true,
     })
 
+  const [progress,setProgress] = useState()
+
+  useEffect(() => {
+    setProgress(props.progress)
+  }, [props.progress,progress])
+  
 
   function handleClick(e) {
-    console.log(e.dataKey)
+   console.log(e)
     switch (e.dataKey) {
       // INPUT THROTTLE
       case 'Input throttle (%)':
@@ -36,6 +41,7 @@ export default function GraphPanel(props) {
           graphShow.inputThrottle=true
           setGraphShow(graphShow)
         }
+        break;
       // VOLTS
       case 'Volts (V)':
         if (graphShow.volts == true) {
@@ -45,6 +51,7 @@ export default function GraphPanel(props) {
           graphShow.volts=true
           setGraphShow(graphShow)
         }
+        break;
         // AUX VOLTS
       case 'Aux volts (V)':
         if (graphShow.auxVolts == true) {
@@ -54,6 +61,7 @@ export default function GraphPanel(props) {
           graphShow.auxVolts=true
           setGraphShow(graphShow)
         }
+        break;
       case 'Amps (A)':
         if (graphShow.amps == true) {
           graphShow.amps=false
@@ -62,7 +70,8 @@ export default function GraphPanel(props) {
           graphShow.amps=true
           setGraphShow(graphShow)
         }
-      case 'Amp hours (A)':
+        break;
+      case 'Amp hours (Ah)':
         if (graphShow.ampHours == true) {
           graphShow.ampHours=false
           setGraphShow(graphShow)
@@ -70,6 +79,7 @@ export default function GraphPanel(props) {
           graphShow.ampHours=true
           setGraphShow(graphShow)
         }
+        break;
       case 'Motor speed (RPM)':
         if (graphShow.motorSpeed == true) {
           graphShow.motorSpeed=false
@@ -78,6 +88,7 @@ export default function GraphPanel(props) {
           graphShow.motorSpeed=true
           setGraphShow(graphShow)
         }
+        break;
       case 'Speed (m/s)':
         if (graphShow.speed == true) {
           graphShow.speed=false
@@ -86,6 +97,7 @@ export default function GraphPanel(props) {
           graphShow.speed=true
           setGraphShow(graphShow)
         }
+        break;
       case 'Distance (m)':
         if (graphShow.distance == true) {
           graphShow.distance=false
@@ -94,6 +106,7 @@ export default function GraphPanel(props) {
           graphShow.distance=true
           setGraphShow(graphShow)
         }
+        break;
       case 'Temp1 (C)':
         if (graphShow.temp1 == true) {
           graphShow.temp1=false
@@ -102,6 +115,7 @@ export default function GraphPanel(props) {
           graphShow.temp1=true
           setGraphShow(graphShow)
         }
+        break;
       case 'Temp2 (C)':
         if (graphShow.temp2 == true) {
           graphShow.temp2=false
@@ -110,20 +124,45 @@ export default function GraphPanel(props) {
           graphShow.temp2=true
           setGraphShow(graphShow)
         }
-    }
-    // TOGGLING ALL AFTER THE CLICKED ONE???
-    console.log(graphShow.inputThrottle)
+        break;
+      case 'Gear ratio':
+        if (graphShow.gearRatio == true) {
+          graphShow.gearRatio=false
+          setGraphShow(graphShow)
+        } else {
+          graphShow.gearRatio=true
+          setGraphShow(graphShow)
+        }
+        break;
+      case 'Gear':
+        if (graphShow.gear == true) {
+          graphShow.gear=false
+          setGraphShow(graphShow)
+        } else {
+          graphShow.gear=true
+          setGraphShow(graphShow)
+        }
+
+      }
+      if (progress==0) {
+        setProgress(1)
+      } else {
+        setProgress(0)
+      }
+      
+     
   }
    
 
 
   return (
-    <LineChart width={900} height={300} data={props.data}>
+    <>
+    <LineChart width={880} height={400} data={props.data}>
         <Line type="monotone" dataKey="Input throttle (%)" stroke="blue" dot={false} isAnimationActive={false} hide={graphShow.inputThrottle}/>
-        <Line type="monotone" dataKey="Volts (V)" stroke="#231651" dot={false} isAnimationActive={false} hide={graphShow.volts}/>
+        <Line type="monotone" dataKey="Volts (V)" stroke="#231651" dot={false}  isAnimationActive={false}  hide={graphShow.volts}/>
         <Line type="monotone" dataKey="Aux volts (V)" stroke="#4DCCBD" dot={false} isAnimationActive={false} hide={graphShow.auxVolts}/>
         <Line type="monotone" dataKey="Amps (A)" stroke="#2374AB" dot={false} isAnimationActive={false} hide={graphShow.amps}/>
-        <Line type="monotone" dataKey="Amp hours (A)" stroke="#FF8484" dot={false} isAnimationActive={false} hide={graphShow.ampHours}/>
+        <Line type="monotone" dataKey="Amp hours (Ah)" stroke="#FF8484" dot={false} isAnimationActive={false} hide={graphShow.ampHours}/>
         <Line type="monotone" dataKey="Motor speed (RPM)" stroke="#380036" dot={false} isAnimationActive={false} hide={graphShow.motorSpeed}/>
         <Line type="monotone" dataKey="Speed (m/s)" stroke="#FF9B71" dot={false} isAnimationActive={false} hide={graphShow.speed}/>
         <Line type="monotone" dataKey="Distance (m)" stroke="#40C9A2" dot={false} isAnimationActive={false} hide={graphShow.distance}/>
@@ -134,10 +173,11 @@ export default function GraphPanel(props) {
 
         
         <CartesianGrid stroke='#ccc' />
-        <ReferenceLine  x={Math.floor(props.progress)} stroke="red" />
+        <ReferenceLine  x={Math.floor(progress)} stroke="red" />
         <Legend verticalAlign="bottom" height={36} onClick={handleClick}/>
         <XAxis/>
-        <YAxis />
+        <YAxis type='number' domain={[0,'dataMax']} allowDataOverflow={false}/>
     </LineChart>
+    </>
   )
 }

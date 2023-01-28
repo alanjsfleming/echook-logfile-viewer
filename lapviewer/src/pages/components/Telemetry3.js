@@ -19,7 +19,7 @@ export default function Telemetry3(props) {
 
     return (
     <>
-       <TelemetryCard title={'Speed'} data={props.telemetry['Speed (m/s)']} units={'m/s'} kind={"gauge"}/>
+    <TelemetryCard title={'Amp hours'} data={props.telemetry['Amp hours (Ah)']} units={'Ah'} kind={"gauge"}/>
 
     <TelemetryCard title={'Battery'} data={Math.floor(100-(props.telemetry['Amp hours (Ah)']/27*100))} units={'%'} kind={"gauge"} />
 

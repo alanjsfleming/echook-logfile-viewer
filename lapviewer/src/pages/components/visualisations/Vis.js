@@ -1,6 +1,6 @@
 import React from 'react'
 import Gauge from './Gauge'
-
+import Timer from './Timer'
 
 export default function Vis(type,units,data,settings) {
 
@@ -37,6 +37,10 @@ export default function Vis(type,units,data,settings) {
             
             } 
             
+        } else if (props.kind==="timer") {
+            if (props.raceStart) {
+                return <Timer raceStart={props.raceStart} currentTime={props.currentTime}/>
+            }
         }
     }
 

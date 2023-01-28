@@ -3,6 +3,7 @@ import '../App.css';
 
 import { useState } from 'react';
 import GraphPanel from './components/GraphPanel';
+import MenuBar from './components/MenuBar';
 
 function App() {
 
@@ -18,7 +19,7 @@ function App() {
 
 
     <>
-    <h5>eChook race visualiser designed to be used on computer in fullscreen mode</h5>
+    <MenuBar />
     <div class="parameters">
 
       <label for="scale">Scale</label>
