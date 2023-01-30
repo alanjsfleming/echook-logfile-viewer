@@ -24,6 +24,14 @@ export default function FileUpload(props) {
         });  
     };
 
+    function hasDataPoints() {
+        if (dataPoints.length>0) {
+            return true
+        } else {
+            return false
+        }
+    }
+
     useEffect(() => {
        
     },[dataPoints])
@@ -149,11 +157,19 @@ export default function FileUpload(props) {
 
   return (
     <>
+
+
+
+
+
+
+
     <form hidden={fileSelected}>
         <label for="file">Upload eChook Logfile: </label>
         <input type="file" id="lapData" name="file" accept=".csv" onChange={changeHandler}/> 
+        
     </form>
-    <TrackRender id="trackCanvas" renderParams={props.renderParams} data={dataPoints}/>
+    <TrackRender id="trackCanvas" renderParams={props.renderParams} data={dataPoints} />
     </>
   )
 }

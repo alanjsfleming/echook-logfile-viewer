@@ -19,7 +19,7 @@ export default function Telemetry1(props) {
 
     return (
     <>
-    <div class="telemetry-container">
+    <div class="telemetry-container ">
     <TelemetryCard title={'V1'} data={(props.telemetry['Volts (V)']-props.telemetry['Aux volts (V)']).toFixed(1)} units={'V'} kind={"gauge"}/>
 
     <TelemetryCard title={'Amps'} data={props.telemetry['Amps (A)']} units={'A'} kind={"gauge"}/>

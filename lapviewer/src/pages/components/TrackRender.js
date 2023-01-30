@@ -21,7 +21,8 @@ export default function TrackRender(props) {
     const [raceStart,setRaceStart] = useState()
 
     function handleRaceStart(e) {
-      setRaceStart(currentData.timestamp)
+      setRaceStart(playbackProgress)
+      console.log(raceStart)
     }
 
     function handle1xPlaybackSpeed(e) {
@@ -34,6 +35,10 @@ export default function TrackRender(props) {
 
     function handle100xPlaybackSpeed(e) {
       setPlaybackSpeed(1)
+    }
+
+    function handleGoToStart(e){
+
     }
 
 
@@ -177,30 +182,32 @@ export default function TrackRender(props) {
     <>
     <div class="container-fluid">
       <div class="row top-row">
-       <div class="col-4">
-          <canvas class="render-layer1" ref={canvasRef}  {...props} width="500" height="500"/> 
-          <canvas class="render-layer2" ref={canvasLayer2Ref} {...props} width="500" height="500"/>
-          
+       <div class="col-4 render-container">
+          <div class="renderCanvases">
+            <canvas class="render-layer1" ref={canvasRef}  {...props} width="500" height="500"/> 
+            <canvas class="render-layer2" ref={canvasLayer2Ref} {...props} width="500" height="500"/>
+          </div>
         </div>
-        <div class="col-2 card">
+        <div class="col-2">
           <RawData currentData={currentData}/>
         </div>
         <div class="col-6 card">
           <div class="row">
              
               
-              <GraphPanel data={reducedSampleRateData(props.data,100)} progress={playbackProgress/100} />
+              <GraphPanel data={reducedSampleRateData(props.data,100)} progress={playbackProgress/100} raceStart={raceStart/100}/>
           </div>
             <div class="seeking-container">
               <label for="seek">{convertTimestamp(currentData.timestamp)}</label>
               <div class="slidecontainer">
-              <input type="range" id="seek" class="slider" name="seek" onChange={handleSeekChange} value={playbackProgress/props.data.length*1000} min="0" max="1000" disabled={loading}/>
+                <input type="range" id="seek" class="slider" name="seek" onChange={handleSeekChange} value={playbackProgress/props.data.length*1000} min="0" max="1000" disabled={loading}/>
               </div>
               <button disabled={loading} onClick={handlePlayPause}>{showPlayPauseButton()}</button>
               <button disabled={loading} onClick={handleRaceStart}>Set start</button>
-              <button onClick={handle1xPlaybackSpeed}>1x</button>
-              <button onClick={handle10xPlaybackSpeed}>10x</button>
-              <button onClick={handle100xPlaybackSpeed}>100x</button>
+              <button disabled={loading} onClick={handleGoToStart}>Go to start</button>
+              <button disabled={loading} onClick={handle1xPlaybackSpeed}>1x</button>
+              <button disabled={loading} onClick={handle10xPlaybackSpeed}>10x</button>
+              <button disabled={loading} onClick={handle100xPlaybackSpeed}>100x</button>
             </div>
           </div>
         

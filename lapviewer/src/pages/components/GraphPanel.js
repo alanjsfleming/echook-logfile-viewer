@@ -5,7 +5,6 @@ import { LineChart,Legend, Line, CartesianGrid,XAxis,YAxis,ReferenceLine } from 
 
 export default function GraphPanel(props) {
   
-  
   const [graphShow,setGraphShow] = useState(
     {
       inputThrottle:true,
@@ -174,6 +173,7 @@ export default function GraphPanel(props) {
         
         <CartesianGrid stroke='#ccc' />
         <ReferenceLine  x={Math.floor(progress)} stroke="red" />
+        <ReferenceLine x={Math.floor(props.raceStart)} stroke="black" />
         <Legend verticalAlign="bottom" height={36} onClick={handleClick}/>
         <XAxis/>
         <YAxis type='number' domain={[0,'dataMax']} allowDataOverflow={false}/>
