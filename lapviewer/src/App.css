@@ -149,7 +149,7 @@ body {
   -webkit-appearance: none;  /* Override default CSS styles */
   appearance: none;
   width: 100%; /* Full-width */
-  height: 25px; /* Specified height */
+  height: 10px; /* Specified height */
   background: #b4c0be; /* Grey background */
   outline: none; /* Remove outline */
   opacity: 1; /* Set transparency (for mouse-over effects on hover) */
@@ -163,14 +163,27 @@ body {
   -webkit-appearance: none; /* Override default look */
   appearance: none;
   width: 25px; /* Set a specific slider handle width */
-  height: 25px; /* Slider handle height */
+  height: 20px; /* Slider handle height */
+  border-radius: 25%;
   background: #009578; /* Green background */
   cursor: pointer; /* Cursor on hover */
 }
 
 .slider::-moz-range-thumb {
   width: 25px; /* Set a specific slider handle width */
-  height: 25px; /* Slider handle height */
+  height: 20px; /* Slider handle height */
+  border-radius: 25%;
   background: #009578; /* Green background */
   cursor: pointer; /* Cursor on hover */
+
+}
+
+.footer-links {
+  text-decoration: none;
+  color: black;
+}
+
+.footer-links:hover{
+  color:black;
+  text-decoration: underline;
 }

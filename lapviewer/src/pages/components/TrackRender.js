@@ -1,9 +1,9 @@
 import React, {useRef,useEffect, useState} from 'react'
 import Telemetry1 from './Telemetry1'
-import Telemetry2 from './Telemetry2'
+
 
 import GraphPanel from './GraphPanel'
-import Telemetry3 from './Telemetry3'
+
 import RawData from './RawData'
 
 export default function TrackRender(props) {
@@ -12,6 +12,7 @@ export default function TrackRender(props) {
 
     const canvasRef=useRef(null)
     const canvasLayer2Ref=useRef(null)
+    const progressSlider=useRef()
 
     const [currentData,updateCurrentData]=useState([])
     const [playbackStatus,setPlaybackStatus]=useState(false)
@@ -38,7 +39,8 @@ export default function TrackRender(props) {
     }
 
     function handleGoToStart(e){
-
+      setPlaybackProgress(raceStart)
+      updateCurrentData(props.data[playbackProgress])
     }
 
 
@@ -52,7 +54,8 @@ export default function TrackRender(props) {
     function handleSeekChange(event) {
       if (props.data[0]) {
         const index = Math.floor(event.target.value/1000 *props.data.length)
-        setPlaybackStatus(false)
+        // I think this line might disable the playing
+        //setPlaybackStatus(false)
         if (props.data[index]) {
           updateCurrentData(props.data[index])
           setPlaybackProgress(index)
@@ -61,21 +64,20 @@ export default function TrackRender(props) {
       }
     }
 
-    let playbackTimeoutID = 0
-
-
+    // Toggle play/pause state
     function handlePlayPause(event) {
       if (playbackStatus==true) {
         // Pause
         setPlaybackStatus(false)
         
+        
       } else {
         // Play
-        setPlaybackStatus(true)
-        updateCurrentData(props.data[playbackProgress])
+        setPlaybackStatus(true,playThrough())
       }
     }
 
+    // Show Play/Pause in button depending on state
    function showPlayPauseButton() {
     if (playbackStatus) {
       return <span>Pause</span>
@@ -85,13 +87,20 @@ export default function TrackRender(props) {
    }
   
    // this block doesnt work - rethink
+   // setState doesnt update immediately so it doesnt take the playbackStatus value correctly. 
+   // for same reason it only takes the playbackProgress of when it was initiated, doesnt update and read next value each time.
     function playThrough(){
-      if (playbackProgress < props.data.length) {
-        
-        updateCurrentData(props.data[playbackProgress])
-        setPlaybackProgress(playbackProgress+1)
-        console.log(playbackStatus)
-      }
+      console.log(playbackStatus)
+      const playingInterval = setInterval(function(){
+        if (playbackStatus) {
+          clearInterval(playingInterval)
+        }
+
+        if (playbackProgress < props.data.length) {
+        progressSlider.stepUp(1)
+        }
+      },50)
+      
       
     }
 
@@ -99,7 +108,7 @@ export default function TrackRender(props) {
     const drawTrack = (ctx,canvas,data) => {
         // variable to choose initial render speed
     
-        ctx.fillstyle='#00000'
+        ctx.fillStyle='#b4c0be'
         // make sure it doesnt try draw when no data
         if (props.data.length>0) {
         // initial data point 
@@ -116,7 +125,7 @@ export default function TrackRender(props) {
           ctx.stroke()
           
         },playbackSpeed*index);
-        return clearTimeout()
+        return () => clearTimeout()
         })
         setTimeout(function(){completeLoading(false)},playbackSpeed*data.length)
         
@@ -128,7 +137,7 @@ export default function TrackRender(props) {
     const drawCurrentPos = (ctx2,canvas2,item) => {
       
       const coords2 = [(canvas2.width/2+item["renderX"]*canvas2.width),(canvas2.height/2-item["renderY"]*canvas2.height)]
-      ctx2.fillstyle='#FF0000'
+      ctx2.fillStyle='#009578'
       ctx2.fillRect(coords2[0]-10,coords2[1]-10,20,20)
     }
     // only rerender dot and update the telemetry. leave the outline of the track to just render once.
@@ -144,9 +153,6 @@ export default function TrackRender(props) {
       canvas2.style.width = canvas2.width/window.devicePixelRatio + "px"
       context2.clearRect(0, 0, canvas2.width, canvas2.height)
       drawCurrentPos(context2,canvas2,currentData)
-      if (playbackStatus) {
-        playThrough()
-      }
     },[currentData])
 
 
@@ -200,7 +206,7 @@ export default function TrackRender(props) {
             <div class="seeking-container">
               <label for="seek">{convertTimestamp(currentData.timestamp)}</label>
               <div class="slidecontainer">
-                <input type="range" id="seek" class="slider" name="seek" onChange={handleSeekChange} value={playbackProgress/props.data.length*1000} min="0" max="1000" disabled={loading}/>
+                <input type="range" id="seek" class="slider" name="seek" ref={progressSlider} onChange={handleSeekChange} value={playbackProgress/props.data.length*1000} min="0" max="1000" disabled={loading}/>
               </div>
               <button disabled={loading} onClick={handlePlayPause}>{showPlayPauseButton()}</button>
               <button disabled={loading} onClick={handleRaceStart}>Set start</button>
