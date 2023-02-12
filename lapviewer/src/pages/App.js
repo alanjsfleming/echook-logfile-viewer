@@ -38,13 +38,13 @@ function App() {
     <div class="parameters">
 
       <label for="scale">Scale</label>
-      <input type="range" id="scale" name="scale" defaultValue={40} min="1" max="50" onChange={setRenderScale(30)}/>
+      <input type="range" id="scale" name="scale" defaultValue={40} min="1" max="50"/>
 
     </div>
 
 
 
-      <FileUpload renderParams={renderScale}/>
+      <FileUpload renderScale={renderScale}/>
     
     
     <Footer />

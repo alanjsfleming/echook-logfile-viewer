@@ -137,7 +137,7 @@ export default function FileUpload(props) {
             const distance = Math.hypot(dX,dY)
        
             // scale = distance/furthest (turns out its not because that warps it like a lens)
-            const scale = props.renderParams['scale']
+            const scale = props.renderScale
         
             // dX * scale = scaledX
             // dY * scale = scaledY

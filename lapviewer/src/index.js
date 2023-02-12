@@ -1,16 +1,23 @@
 import React from 'react';
 import ReactDOM from 'react-dom/client';
-
+import { BrowserRouter, Routes, Route } from 'react-router-dom'
 import './index.css';
 import App from './pages/App';
+import GetAccess from './pages/GetAccess';
+import NoPage from './pages/NoPage';
 import reportWebVitals from './reportWebVitals';
 
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
   <React.StrictMode>
- 
-      <App />
+    <BrowserRouter basename="/">
+      <Routes>
+        <Route path="/" element={<App />} />
+        <Route path="/get-access" element={<GetAccess />} />
+        <Route path="*" element={<NoPage />} />
+      </Routes>
+    </BrowserRouter>
    
   </React.StrictMode>
 );
