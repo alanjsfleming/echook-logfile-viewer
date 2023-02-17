@@ -9,27 +9,18 @@ export default function GetAccess() {
     <>
     <GetAccessMenu />
     <div class="px-4 pt-5 my-5 border-bottom shadow">
-      <h1 class="display-4 text-center fw-bold">Get Free Access to eChook Logfile visualiser</h1>
+      <h1 class="display-4 text-center fw-bold">Free eChook Logfile visualiser</h1>
+      <br></br>
       <div class="col-lg-6 mx-auto">
-        <p class="lead mb-4 text-center">Enter your email to get a free access link.</p>
+        <p class="lead mb-4 text-center">No more excel sheets.</p>
+        <p class="lead mb-4 text-center">The visualiser can be used in combination with our Live Telemetry Dashboard to gain a comprehensive understanding of your cars performance after and during races.</p>
         <div class="d-grid gap-2 d-sm-flex justify-content-sm-center mb-5">
-          <form class="card p-3 w-50">
-            <div class="form-group">
-              <label for="email">Email address</label>
-              <input class="form-control" name="email" type="email" />
-            </div>
-
-            <div class="form-check">
-              <input type="checkbox" class="form-check-input" />
-              <label for="checkbox" class="form-check-label">I agree to receive communications</label>
-              
-            </div>
-
-
-          
-              <button type="submit" class="btn btn-primary btn-lg px-4 me-sm-3 form-control">Go</button>
-          
-          </form>
+          <div class=" w-25">
+            
+             
+              <Link to="/" class="btn btn-primary btn-lg px-4 me-sm-3 form-control">Enter</Link>
+         
+          </div>
         
         </div>
       </div>

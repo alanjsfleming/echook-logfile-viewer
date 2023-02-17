@@ -6,10 +6,18 @@ import GraphPanel from './GraphPanel';
 export default function FileUpload(props) {
     const [dataPoints,changeDataPoints] = useState([])
     const [fileSelected,setFileSelected] = useState(false)
+    const [renderScale,setRenderScale] = useState(40)
+
+
+    // Changes scale parameter
+    function handleChangeScale(event){
+        setRenderScale(event.target.value)
+        console.log(renderScale)
+    }
+
     // function to parse csv file and returns json object.
     const changeHandler = (event) => {
         setFileSelected(true)
-        document.getElementById('trackCanvas').scrollIntoView()
         Papa.parse(event.target.files[0], {
             header:true,
             skipEmptyLines:true,
@@ -137,7 +145,7 @@ export default function FileUpload(props) {
             const distance = Math.hypot(dX,dY)
        
             // scale = distance/furthest (turns out its not because that warps it like a lens)
-            const scale = props.renderScale
+            const scale = renderScale
         
             // dX * scale = scaledX
             // dY * scale = scaledY
@@ -161,7 +169,12 @@ export default function FileUpload(props) {
 
 
 
+    <div hidden={fileSelected} class="parameters">
 
+      <label for="scale">Scale: {renderScale} </label>
+      <input type="range" id="scale" name="scale" defaultValue={40} onChange={handleChangeScale} min="1" max="50"/>
+
+    </div>
 
 
     <form hidden={fileSelected}>
@@ -169,7 +182,7 @@ export default function FileUpload(props) {
         <input type="file" id="lapData" name="file" accept=".csv" onChange={changeHandler}/> 
         
     </form>
-    <TrackRender id="trackCanvas" renderParams={props.renderParams} data={dataPoints} />
+    <TrackRender id="trackCanvas" data={dataPoints} />
     </>
   )
 }

@@ -4,7 +4,7 @@ import Telemetry1 from './Telemetry1'
 
 import GraphPanel from './GraphPanel'
 
-import RawData from './RawData'
+
 
 export default function TrackRender(props) {
     // comment this thing!!!
@@ -15,11 +15,28 @@ export default function TrackRender(props) {
     const progressSlider=useRef()
 
     const [currentData,updateCurrentData]=useState([])
+   
     const [playbackStatus,setPlaybackStatus]=useState(false)
     const [playbackProgress, setPlaybackProgress] = useState()
     const [loading,completeLoading] = useState(true)
     const [playbackSpeed,setPlaybackSpeed] = useState(1)
     const [raceStart,setRaceStart] = useState()
+    const [dataMetrics,setDataMetrics] = useState()
+    const [layoutSettings,setLayoutSettings] = useState({  })
+    const [trackSettings,setTrackSettings] = useState(4000)
+
+    useEffect(()=>{
+      if (props.data.length>0){
+        setDataMetrics(Object.keys(props.data[0]))
+      }
+    },[props.data])
+   
+    useEffect(()=>{
+      setLayoutSettings(dataMetrics)
+     
+    },[dataMetrics])
+
+
 
     function handleRaceStart(e) {
       setRaceStart(playbackProgress)
@@ -69,6 +86,7 @@ export default function TrackRender(props) {
       if (playbackStatus==true) {
         // Pause
         setPlaybackStatus(false)
+        console.log(progressSlider)
         
         
       } else {
@@ -97,9 +115,10 @@ export default function TrackRender(props) {
         }
 
         if (playbackProgress < props.data.length) {
-        progressSlider.stepUp(1)
+          updateCurrentData(props.data[playbackProgress+1])
+          setPlaybackProgress(playbackProgress+1)
         }
-      },50)
+      },playbackSpeed)
       
       
     }
@@ -115,19 +134,25 @@ export default function TrackRender(props) {
         const originCoords = [(canvas.width/2+data[0]["renderX"]*canvas.width),(canvas.height/2-data[0]["renderY"]*canvas.height)]
         // move cursor to initial point,
         ctx.moveTo(originCoords[0],originCoords[1])
-        data.forEach(function(item,index,collection) {
-          setTimeout(function(){
+        data.filter(item=>item["Distance (m)"]<trackSettings)
+        .forEach(function(item,index) {
+          //setTimeout(function(){
           updateCurrentData(item)
           setPlaybackProgress(index)
-         
+        
           const coords = [(canvas.width/2+item["renderX"]*canvas.width),(canvas.height/2-item["renderY"]*canvas.height)]
           ctx.lineTo(coords[0],[coords[1]])
           ctx.stroke()
           
-        },playbackSpeed*index);
-        return () => clearTimeout()
+        //},playbackSpeed*index);
+        //return () => clearTimeout()
         })
-        setTimeout(function(){completeLoading(false)},playbackSpeed*data.length)
+        
+        //setTimeout(function(){
+          updateCurrentData(data[0])
+          setPlaybackProgress(0)
+          completeLoading(false)
+        //},playbackSpeed*data.length)
         
       } 
     }
@@ -184,6 +209,34 @@ export default function TrackRender(props) {
       return resized
   } 
 
+
+    const DataSettingsComponent = ({dataMetrics}) => (
+      <form class="form">
+        <div class="row">
+          <div class="col text-center">Name</div>
+          <div class="col text-center">Graph</div>
+          <div class="col text-center">Gauge</div>
+          
+        </div>
+
+        {dataMetrics.map(metric => (
+          <div class="row form-group">
+            <div class="col d-flex justify-content-center">{metric}</div>
+
+            <div class="col form-check-inline d-flex justify-content-center">
+              <input name={metric} type="checkbox" />
+            </div>
+
+            <div class="col form-check-inline d-flex justify-content-center">
+              <input name={metric} type="checkbox" defaultChecked={true}/>
+            </div>
+            
+          </div>
+        ))}
+      </form>
+    )
+
+
   return (
     <>
     <div class="container-fluid">
@@ -195,8 +248,43 @@ export default function TrackRender(props) {
           </div>
         </div>
         <div class="col-2">
-          <RawData currentData={currentData}/>
+          {loading && <h3>File not loaded...</h3>}
+        
+          <button type="button" class="btn btn-outline-primary btn-block livetelembutton" data-toggle="modal" data-target="#settingsModalCenter">Settings</button>
         </div>
+
+        <div class="modal fade" id="settingsModalCenter" tabindex="-1" role="dialog" aria-labelledby="settingsModalTitle" aria-hidden="true">
+          <div class="modal-dialog modal-xl modal-dialog-centered" role="document">
+            <div class="modal-content">
+              <div class="modal-header">
+                <h5 class="modal-title text-center" id="settingsModalLongTitle">Settings</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                  <span aria-hidden="true">&times;</span>
+                </button>
+              </div>
+              <div class="modal-body">
+                <button class="btn btn-outline-primary btn-block">Create free account to save setup between sessions</button>
+                <button class="btn btn-primary btn-block">Save settings</button>
+                <br></br>
+
+                <h5>Map</h5>
+                <input id="settingsMapDraw" name="mapSettings" type="radio" value="draw" />
+                <label for="settingsMapDraw">Drawn path</label>
+                <br></br>
+                <input id="settingsMapRender" name="mapSettings" type="radio" value="render" />
+                <label for="settingsMapRender">Map marker</label>
+
+                <h5></h5>
+
+                <h5>Select Data</h5>
+                {dataMetrics && <DataSettingsComponent dataMetrics={dataMetrics}/>}
+                {!dataMetrics && <p>No file loaded...</p>}
+              </div> 
+            </div>
+          </div>
+        </div>
+
+
         <div class="col-6 card">
           <div class="row">
              
@@ -230,3 +318,23 @@ export default function TrackRender(props) {
     </>
   )
 }
+
+//     function findBasicToggle() {
+//  return true
+//}
+
+//function findBasicUpper() {
+//    return 10/
+//}
+
+//function findBasicLower() {
+//    return 0/
+//}
+
+//const defaultSettings = dataMetrics.map(elem => (
+//  {
+//  key:elem,
+//  enabled:findBasicToggle(),
+//  upper:findBasicUpper(),
+//  lower:findBasicLower()
+//}))
