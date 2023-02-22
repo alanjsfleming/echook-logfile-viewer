@@ -7,6 +7,7 @@ export default function FileUpload(props) {
     const [dataPoints,changeDataPoints] = useState([])
     const [fileSelected,setFileSelected] = useState(false)
     const [renderScale,setRenderScale] = useState(40)
+    const [modalShow,setModalShow] = useState(true)
 
 
     // Changes scale parameter
@@ -18,6 +19,7 @@ export default function FileUpload(props) {
     // function to parse csv file and returns json object.
     const changeHandler = (event) => {
         setFileSelected(true)
+        setModalShow(false)
         Papa.parse(event.target.files[0], {
             header:true,
             skipEmptyLines:true,
@@ -165,23 +167,47 @@ export default function FileUpload(props) {
 
   return (
     <>
+    <div class={"modal fade"  + (modalShow && " show d-block")} id="fileUploadModalCenter" tabindex="-1" role="dialog" aria-labelledby="fileUploadModalTitle" aria-hidden={!modalShow}>
+          <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content">
+              <div class="modal-header">
+                <h5 class="modal-title text-center" id="fileUploadModalLongTitle">Upload logfile</h5>
+            
+              </div>
+              <div class="modal-body">
+                <p>Files in .csv supported. Open settings after loading to change which columns are included in your visualisation.</p>
+                <br></br>
+                <div class="parameters">
+
+                    <label for="scale">Render scale (40 recommended): {renderScale} </label>
+                    <input type="range" id="scale" name="scale" defaultValue={40} onChange={handleChangeScale} min="1" max="50"/>
+                    <br></br>
+
+                    <label for="tracklength">Track length: </label>
+                    <input type="number" id="tracklength" name="tracklength" defaultValue={4000} />
+                    <br></br>
+
+                    <label for="amphours">Car AmpHours: </label>
+                    <input type="number" id="amphours" name="amphours" defaultValue={30} />
+                    <br></br>
+
+                <form>
+                    <label for="file">Upload eChook Logfile: </label>
+                    <input type="file" id="lapData" name="file" accept=".csv" onChange={changeHandler}/> 
+  
+                </form>
+                </div>
+              </div> 
+            </div>
+          </div>
+        </div>
 
 
 
-
-    <div hidden={fileSelected} class="parameters">
-
-      <label for="scale">Scale: {renderScale} </label>
-      <input type="range" id="scale" name="scale" defaultValue={40} onChange={handleChangeScale} min="1" max="50"/>
-
-    </div>
-
-
-    <form hidden={fileSelected}>
-        <label for="file">Upload eChook Logfile: </label>
-        <input type="file" id="lapData" name="file" accept=".csv" onChange={changeHandler}/> 
+    
         
-    </form>
+
+
     <TrackRender id="trackCanvas" data={dataPoints} />
     </>
   )

@@ -2,6 +2,7 @@
 Visualise echook logfile data, playback
 
 ## todo 
+- Plotly.js??
 - Select which gauges and order.
 - add menu to control which telemetry shows and the paramters for gauges.
 - Make play/pause function work

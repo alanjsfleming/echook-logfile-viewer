@@ -151,6 +151,7 @@ export default function TrackRender(props) {
         //setTimeout(function(){
           updateCurrentData(data[0])
           setPlaybackProgress(0)
+          setRaceStart(0)
           completeLoading(false)
         //},playbackSpeed*data.length)
         
@@ -209,13 +210,17 @@ export default function TrackRender(props) {
       return resized
   } 
 
-
+    // add: upper, lower, vis type
+    // when click save then set state to object { 'V1' : { enabled: true, type: 'gauge', upper: 30, lower: 0 },
+  //                                                 ...  }
     const DataSettingsComponent = ({dataMetrics}) => (
       <form class="form">
-        <div class="row">
+        <div class="row form-group">
           <div class="col text-center">Name</div>
           <div class="col text-center">Graph</div>
           <div class="col text-center">Gauge</div>
+          <div class="col text-center">Max value</div>
+          <div class="col text-center">Min value</div>
           
         </div>
 
@@ -231,6 +236,13 @@ export default function TrackRender(props) {
               <input name={metric} type="checkbox" defaultChecked={true}/>
             </div>
             
+            <div class="col d-flex justify-content-center">
+              <input name={metric} type="number" step="1" defaultValue="30" />
+            </div>
+
+            <div class="col d-flex justify-content-center">
+              <input name={metric} type="number" step="1" defaultValue="0" />
+            </div>
           </div>
         ))}
       </form>
@@ -268,7 +280,7 @@ export default function TrackRender(props) {
                 <br></br>
 
                 <h5>Map</h5>
-                <input id="settingsMapDraw" name="mapSettings" type="radio" value="draw" />
+                <input id="settingsMapDraw" name="mapSettings" type="radio" value="draw" defaultChecked={true}/>
                 <label for="settingsMapDraw">Drawn path</label>
                 <br></br>
                 <input id="settingsMapRender" name="mapSettings" type="radio" value="render" />
