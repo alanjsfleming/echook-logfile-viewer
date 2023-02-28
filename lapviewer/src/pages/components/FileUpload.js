@@ -167,14 +167,11 @@ export default function FileUpload(props) {
 
   return (
     <>
-    <div class={"modal fade"  + (modalShow && " show d-block")} id="fileUploadModalCenter" tabindex="-1" role="dialog" aria-labelledby="fileUploadModalTitle" aria-hidden={!modalShow}>
+    <div class={"modal fade fullscreen-modal"  + (modalShow && " show d-block")} id="fileUploadModalCenter" tabindex="-1" role="dialog" aria-labelledby="fileUploadModalTitle" aria-hidden={!modalShow}>
           <div class="modal-dialog modal-dialog-centered" role="document">
             <div class="modal-content">
-              <div class="modal-header">
-                <h5 class="modal-title text-center" id="fileUploadModalLongTitle">Upload logfile</h5>
-            
-              </div>
               <div class="modal-body">
+              
                 <p>Files in .csv supported. Open settings after loading to change which columns are included in your visualisation.</p>
                 <br></br>
                 <div class="parameters">
@@ -196,6 +193,7 @@ export default function FileUpload(props) {
                     <input type="file" id="lapData" name="file" accept=".csv" onChange={changeHandler}/> 
   
                 </form>
+              
                 </div>
               </div> 
             </div>

@@ -60,6 +60,9 @@ export default function TrackRender(props) {
       updateCurrentData(props.data[playbackProgress])
     }
 
+    function handleSaveSettings(e) {
+      return
+    }
 
     function convertTimestamp(timestamp){
       const date = new Date(Number(timestamp))
@@ -308,12 +311,14 @@ export default function TrackRender(props) {
               <div class="slidecontainer">
                 <input type="range" id="seek" class="slider" name="seek" ref={progressSlider} onChange={handleSeekChange} value={playbackProgress/props.data.length*1000} min="0" max="1000" disabled={loading}/>
               </div>
+            <div hidden>
               <button disabled={loading} onClick={handlePlayPause}>{showPlayPauseButton()}</button>
               <button disabled={loading} onClick={handleRaceStart}>Set start</button>
               <button disabled={loading} onClick={handleGoToStart}>Go to start</button>
               <button disabled={loading} onClick={handle1xPlaybackSpeed}>1x</button>
               <button disabled={loading} onClick={handle10xPlaybackSpeed}>10x</button>
               <button disabled={loading} onClick={handle100xPlaybackSpeed}>100x</button>
+            </div>
             </div>
           </div>
         

@@ -187,3 +187,15 @@ body {
   color:black;
   text-decoration: underline;
 }
+
+
+.fullscreen-modal .modal-content {
+  position: fixed;
+  top: 0px;
+  left: 0px;
+  right: 0px;
+  bottom: 0px;
+  background-color: white;
+  border-radius: 0;
+  border: none;
+}
