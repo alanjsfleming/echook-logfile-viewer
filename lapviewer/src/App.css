@@ -198,4 +198,14 @@ body {
   background-color: white;
   border-radius: 0;
   border: none;
+
+}
+
+.fullscreen-modal .modal-body {
+  padding:0
+}
+
+.fullscreen-modal .card {
+  padding:1rem;
+
 }

@@ -293,7 +293,6 @@ export default function TrackRender(props) {
 
                 <h5>Select Data</h5>
                 {dataMetrics && <DataSettingsComponent dataMetrics={dataMetrics}/>}
-                {!dataMetrics && <p>No file loaded...</p>}
               </div> 
             </div>
           </div>

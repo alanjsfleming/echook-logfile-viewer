@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react'
 import Papa from 'papaparse'
 import TrackRender from './TrackRender';
 import GraphPanel from './GraphPanel';
+import { GetAccessMenu } from './MenuBar';
 
 export default function FileUpload(props) {
     const [dataPoints,changeDataPoints] = useState([])
@@ -171,7 +172,8 @@ export default function FileUpload(props) {
           <div class="modal-dialog modal-dialog-centered" role="document">
             <div class="modal-content">
               <div class="modal-body">
-              
+                <GetAccessMenu />
+                <div class="card w-50 text-center m-auto">
                 <p>Files in .csv supported. Open settings after loading to change which columns are included in your visualisation.</p>
                 <br></br>
                 <div class="parameters">
@@ -193,7 +195,7 @@ export default function FileUpload(props) {
                     <input type="file" id="lapData" name="file" accept=".csv" onChange={changeHandler}/> 
   
                 </form>
-              
+                </div>
                 </div>
               </div> 
             </div>
@@ -205,8 +207,8 @@ export default function FileUpload(props) {
     
         
 
-
-    <TrackRender id="trackCanvas" data={dataPoints} />
+    {!hasDataPoints() && <p class="text-center">loading...</p>}
+    {hasDataPoints() && <TrackRender id="trackCanvas" data={dataPoints} />}
     </>
   )
 }
