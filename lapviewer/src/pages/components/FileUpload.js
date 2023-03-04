@@ -1,7 +1,7 @@
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useState, useRef } from 'react'
 import Papa from 'papaparse'
 import TrackRender from './TrackRender';
-import GraphPanel from './GraphPanel';
+
 import { GetAccessMenu } from './MenuBar';
 
 export default function FileUpload(props) {
@@ -9,7 +9,82 @@ export default function FileUpload(props) {
     const [fileSelected,setFileSelected] = useState(false)
     const [renderScale,setRenderScale] = useState(40)
     const [modalShow,setModalShow] = useState(true)
+    const [formProgress,setFormProgress] = useState("0%")
+    const [uploadedFileName,setUploadedFileName] = useState()
+    const [setupData,setSetupData] = useState({
+        carName:'My Car',
+        carAmpHours:30,
+        trackDistance:4000
+    })
 
+    const fileUploadRef = useRef()
+    const trackDistanceFieldRef = useRef()
+
+    function handleChangeSetupData(e) {
+        console.log(setupData)
+        const field = e.target.name
+        const value = e.target.value
+        console.log(field)
+        switch(field){
+            case 'carName':
+                setSetupData(prevSetupData => ({
+                    ...prevSetupData,
+                    carName:value
+                }))
+                break
+            case 'carAmpHours':
+                setSetupData(prevSetupData => ({
+                    ...prevSetupData,
+                    carAmpHours:value
+                }))
+                break
+            case 'trackDistanceSelect':
+                trackDistanceFieldRef.current.value=''
+                setSetupData(prevSetupData => ({
+                    ...prevSetupData,
+                    trackDistance:value
+                }))
+                break
+            case 'trackDistance':
+                setSetupData(prevSetupData => ({
+                    ...prevSetupData,
+                    trackDistance:value
+                }))
+
+        }
+    }
+
+    function handleUploadFormNext(e) {
+        switch (formProgress) {
+            case "0%":
+                setFormProgress("33%")
+                break
+            case "33%":
+                setFormProgress("66%")
+        }
+    }
+
+    function handleUploadFormBack(e) {
+        switch (formProgress) {
+            case "100%":
+                setFormProgress("66%")
+                break
+            case "66%":
+                setFormProgress("33%")
+                break
+            case "33%":
+                setFormProgress("0%")
+        }
+    }
+
+    function handleUploadFormSubmit(e) {
+        setFormProgress("100%")
+        setTimeout(function(){changeHandler(fileUploadRef.current.files)},400)
+    }
+
+    function fileUploaded(event) {
+        setUploadedFileName(event.target.value.split("\\").at(-1))
+    }
 
     // Changes scale parameter
     function handleChangeScale(event){
@@ -18,10 +93,10 @@ export default function FileUpload(props) {
     }
 
     // function to parse csv file and returns json object.
-    const changeHandler = (event) => {
+    const changeHandler = (f) => {
         setFileSelected(true)
         setModalShow(false)
-        Papa.parse(event.target.files[0], {
+        Papa.parse(f[0], {
             header:true,
             skipEmptyLines:true,
             //preview:10,
@@ -174,27 +249,96 @@ export default function FileUpload(props) {
               <div class="modal-body">
                 <GetAccessMenu />
                 <div class="card w-50 text-center m-auto">
-                <p>Files in .csv supported. Open settings after loading to change which columns are included in your visualisation.</p>
-                <br></br>
-                <div class="parameters">
+              
+                    <div class="uploadFormContent">
+                       
+                            <div class="progress">
+                                <div class="progress-bar" role="progressbar" style={{width:formProgress}} aria-valuenow={formProgress} aria-valuemin="0" aria-valuemax="3"></div>
+                            </div>
+                            <br></br>
+                            <h1>Start</h1>
+                            <br></br>
+                         
+                            <div class="tab" hidden={!(formProgress==="0%")}>
+                                <h5>Car setup:</h5>
+                                <div class="form-group">
+                                    <label for="carName">Car name:</label>
+                                    <input type="text" onChange={handleChangeSetupData} class="form-control text-center" id="carName" name="carName" defaultValue="My Car" placeholder="My Car" />
+                                </div>
+                                <div class="form-group">
+                                    <label for="carAmpHours">Battery Capacity (Ah):</label>
+                                    <input type="number" onChange={handleChangeSetupData} class="form-control text-center" id="carAmpHours" name="carAmpHours" defaultValue="30" />
+                                </div>
+                            </div>
+                    
+                            <div class="tab" hidden={!(formProgress==="33%")}>
+                                <h5>Track setup:</h5>
+                                <div class="form-group">
+                                    <label for="trackDistanceSelect">Track:</label>
+                                    <select class="form-control text-center" onChange={handleChangeSetupData} name="trackDistanceSelect">
+                                        <option value="2478">Aintree</option>
+                                        <option value="418">Alford</option>
+                                        <option value="1287">Anglesea</option>
+                                        <option value="2350">Aragon</option>
+                                        <option value="3700">Barber Motor Sports Park</option>
+                                        <option value="1979">Bedford</option>
+                                        <option value="1287">Blyton Park</option>
+                                        <option value="1232">Cartagena</option>
+                                        <option value="2977">Castle Combe</option>
+                                        <option value="660">Chambers County</option>
+                                        <option value="610">Chattanooga GP</option>
+                                        <option value="1610">Choccolocco Green Prix</option>
+                                        <option value="1851">Croft</option>
+                                        <option value="1070">Columbus GP</option>
+                                        <option value="1110">Divers Power Grand Prix</option>
+                                        <option value="1255">Dunsfold</option>
+                                        <option value="1834">East Fortune</option>
+                                        <option value="1642">Ford Dunton</option>
+                                        <option value="3862">Goodwood</option>
+                                        <option value="1690">Grissom</option>
+                                        <option value="3492">Hethel</option>
+                                        <option value="1610">Jemison Toyota Classic</option>
+                                        <option value="1609">Mallory Park</option>
+                                        <option value="1130">MSR Houston</option>
+                                        <option value="2639">Navarra</option>
+                                        <option value="2414">Predannack</option>
+                                        <option value="2639">Silverstone</option>
+                                        <option value="2200">Talladega</option>
+                                    </select>
+                                    <br></br>
+                                    <input ref={trackDistanceFieldRef} type="number" class="form-control text-center" id="trackDistance" onChange={handleChangeSetupData} name="trackDistance" placeholder={setupData.trackDistance + "m ( or enter custom track length )"} />
+                                </div>
+                            </div>
+
+                            <div class="tab" hidden={!(formProgress==="66%")}>
+                                <h5>eChook Logfile:</h5>
+                                <div class="form-group">
+                                <p>File:</p>
+                                    <label class="custom-file btn-primary btn" for="fileUpload">
+                                
+                                        <input type="file" id="fileUpload" name="fileUpload" ref={fileUploadRef} accept=".csv" onChange={fileUploaded} />
+                                        {(uploadedFileName) ? uploadedFileName : 'Select File'}
+                                    </label>
+                                </div>
+                            </div>
+
+                        </div>
+                   
+                    <br></br>
+                        <div class="btn-group">
+                            {!(formProgress==="0%" || formProgress==="100%") && <button onClick={handleUploadFormBack} class="btn btn-outline-primary col-6">Back</button>}
+                            {!(formProgress==="66%" || formProgress==="100%") && <button onClick={handleUploadFormNext} class="btn btn-primary">Next</button>}
+                            {(formProgress==="66%" || !formProgress==="100%") && <button onClick={handleUploadFormSubmit} disabled={!uploadedFileName} class="btn btn-primary col-6">Go</button>}
+                        </div>
+                        
+                  
+              
+
+                <div class="parameters" hidden>
 
                     <label for="scale">Render scale (40 recommended): {renderScale} </label>
                     <input type="range" id="scale" name="scale" defaultValue={40} onChange={handleChangeScale} min="1" max="50"/>
-                    <br></br>
-
-                    <label for="tracklength">Track length: </label>
-                    <input type="number" id="tracklength" name="tracklength" defaultValue={4000} />
-                    <br></br>
-
-                    <label for="amphours">Car AmpHours: </label>
-                    <input type="number" id="amphours" name="amphours" defaultValue={30} />
-                    <br></br>
-
-                <form>
-                    <label for="file">Upload eChook Logfile: </label>
-                    <input type="file" id="lapData" name="file" accept=".csv" onChange={changeHandler}/> 
-  
-                </form>
+                    <br></br>               
                 </div>
                 </div>
               </div> 
@@ -207,8 +351,8 @@ export default function FileUpload(props) {
     
         
 
-    {!hasDataPoints() && <p class="text-center">loading...</p>}
-    {hasDataPoints() && <TrackRender id="trackCanvas" data={dataPoints} />}
+    {!hasDataPoints() && <h3 class="text-center loading-screen">analysing file...</h3>}
+    {hasDataPoints() && <TrackRender id="trackCanvas" data={dataPoints} setupData={setupData} />}
     </>
   )
 }

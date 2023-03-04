@@ -23,7 +23,6 @@ export default function TrackRender(props) {
     const [raceStart,setRaceStart] = useState()
     const [dataMetrics,setDataMetrics] = useState()
     const [layoutSettings,setLayoutSettings] = useState({  })
-    const [trackSettings,setTrackSettings] = useState(4000)
 
     useEffect(()=>{
       if (props.data.length>0){
@@ -137,7 +136,7 @@ export default function TrackRender(props) {
         const originCoords = [(canvas.width/2+data[0]["renderX"]*canvas.width),(canvas.height/2-data[0]["renderY"]*canvas.height)]
         // move cursor to initial point,
         ctx.moveTo(originCoords[0],originCoords[1])
-        data.filter(item=>item["Distance (m)"]<trackSettings)
+        data.filter(item=>item["Distance (m)"]<props.setupData.trackDistance)
         .forEach(function(item,index) {
           //setTimeout(function(){
           updateCurrentData(item)
@@ -239,11 +238,11 @@ export default function TrackRender(props) {
               <input name={metric} type="checkbox" defaultChecked={true}/>
             </div>
             
-            <div class="col d-flex justify-content-center">
+            <div class="col d-flex form-control justify-content-center">
               <input name={metric} type="number" step="1" defaultValue="30" />
             </div>
 
-            <div class="col d-flex justify-content-center">
+            <div class="col d-flex form-control justify-content-center">
               <input name={metric} type="number" step="1" defaultValue="0" />
             </div>
           </div>
@@ -265,7 +264,7 @@ export default function TrackRender(props) {
         <div class="col-2">
           {loading && <h3>File not loaded...</h3>}
         
-          <button type="button" class="btn btn-outline-primary btn-block livetelembutton" data-toggle="modal" data-target="#settingsModalCenter">Settings</button>
+          <button type="button" class="btn btn-outline-primary btn-block livetelembutton" data-toggle="modal" data-target="#settingsModalCenter">Settings for {props.setupData.carName}</button>
         </div>
 
         <div class="modal fade" id="settingsModalCenter" tabindex="-1" role="dialog" aria-labelledby="settingsModalTitle" aria-hidden="true">
