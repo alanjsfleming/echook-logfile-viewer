@@ -1,5 +1,5 @@
 import React, {useRef,useEffect, useState} from 'react'
-import Telemetry1 from './Telemetry1'
+import Telemetry from './Telemetry'
 
 
 import GraphPanel from './GraphPanel'
@@ -13,6 +13,7 @@ export default function TrackRender(props) {
     const canvasRef=useRef(null)
     const canvasLayer2Ref=useRef(null)
     const progressSlider=useRef()
+    const mainSettingsRef=useRef()
 
     const [currentData,updateCurrentData]=useState([])
    
@@ -136,7 +137,7 @@ export default function TrackRender(props) {
         const originCoords = [(canvas.width/2+data[0]["renderX"]*canvas.width),(canvas.height/2-data[0]["renderY"]*canvas.height)]
         // move cursor to initial point,
         ctx.moveTo(originCoords[0],originCoords[1])
-        data.filter(item=>item["Distance (m)"]<props.setupData.trackDistance)
+        data.filter(item=>item["Distance (m)"]<parseInt(props.setupData.trackDistance))
         .forEach(function(item,index) {
           //setTimeout(function(){
           updateCurrentData(item)
@@ -202,21 +203,21 @@ export default function TrackRender(props) {
 
 
      // Make new array of data with reduced sample rate for loading in to graph to improve redraw time
-     const reducedSampleRateData = (data,n) => {
-      let resized = []
-      data.forEach(function callback(v,i) {
-          if (i % n === 0) {
-              resized.push(v)
-          }
+    const reducedSampleRateData = (data, n) => { // reduce sample rate of data by factor n
+      let resized = [] // store new array for data
+      data.forEach((v, i) => { // loop through data
+      if (i % n === 0) { // only keep every nth element
+        resized.push(v) // store new data
+        }
       })
       return resized
-  } 
+    } 
 
     // add: upper, lower, vis type
     // when click save then set state to object { 'V1' : { enabled: true, type: 'gauge', upper: 30, lower: 0 },
   //                                                 ...  }
     const DataSettingsComponent = ({dataMetrics}) => (
-      <form class="form">
+      <form class="form" ref={mainSettingsRef}>
         <div class="row form-group">
           <div class="col text-center">Name</div>
           <div class="col text-center">Graph</div>
@@ -228,21 +229,21 @@ export default function TrackRender(props) {
 
         {dataMetrics.map(metric => (
           <div class="row form-group">
-            <div class="col d-flex justify-content-center">{metric}</div>
+            <div class="col m-auto d-flex justify-content-center">{metric}</div>
 
-            <div class="col form-check-inline d-flex justify-content-center">
+            <div class="col m-auto form-check-inline d-flex justify-content-center">
               <input name={metric} type="checkbox" />
             </div>
 
-            <div class="col form-check-inline d-flex justify-content-center">
+            <div class="col m-auto form-check-inline d-flex justify-content-center">
               <input name={metric} type="checkbox" defaultChecked={true}/>
             </div>
             
-            <div class="col d-flex form-control justify-content-center">
+            <div class="col m-auto d-flex justify-content-center">
               <input name={metric} type="number" step="1" defaultValue="30" />
             </div>
 
-            <div class="col d-flex form-control justify-content-center">
+            <div class="col m-auto d-flex justify-content-center">
               <input name={metric} type="number" step="1" defaultValue="0" />
             </div>
           </div>
@@ -302,7 +303,7 @@ export default function TrackRender(props) {
           <div class="row">
              
               
-              <GraphPanel data={reducedSampleRateData(props.data,100)} progress={playbackProgress/100} raceStart={raceStart/100}/>
+              <GraphPanel data={reducedSampleRateData(props.data,100)} progress={playbackProgress/100} dataSelected={[1,2,3,,4]} raceStart={raceStart/100}/>
           </div>
             <div class="seeking-container">
               <label for="seek">{convertTimestamp(currentData.timestamp)}</label>
@@ -324,8 +325,9 @@ export default function TrackRender(props) {
         
         <div class="row">
           <div class="bottom-panel">
-            <div class="col"><Telemetry1 telemetry={currentData} raceStart={raceStart}/></div>
-            
+              <div class="col">
+                <Telemetry telemetry={currentData} raceStart={raceStart}/>
+              </div>
             </div>
         </div>
       </div>

@@ -13,9 +13,32 @@ function convertTimestamp(timestamp){
 
 
 
-export default function Telemetry1(props) {
+export default function Telemetry(props) {
 
-  
+    
+
+    // telemetry data { title: a , value: b , kind: c}
+    // should map all the data params that are selected into telemetry cards. 
+    // need : 
+    // title - the column header in log file
+    // data - props.telemetry[title]
+    // units - whatever is inside the brackets () in the title
+    
+    // some common calculated values should be chooseable in the settings page and added to the current data object
+
+    // function to find units by whatever is inside brackets ()
+
+    function findUnit(string) {
+      // find index of ( 
+      const first = string.indexOf('(')
+      const second = string.indexOf(')')
+      // return string between those two
+      return string.slice(first,second)
+    }
+
+    const mapDataToTelemetry = ({telemetryData}) => {
+      <TelemetryCard title={telemetryData.title} data={telemetryData.value} unit={findUnit(telemetryData.title)} />
+    }
 
     return (
     <>

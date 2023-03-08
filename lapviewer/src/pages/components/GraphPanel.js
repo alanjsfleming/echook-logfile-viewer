@@ -22,6 +22,11 @@ export default function GraphPanel(props) {
     })
 
   const [progress,setProgress] = useState()
+  const [dataSelected,setDataSelected] = useState(props.dataSelected)
+
+  useEffect(()=> {
+    setDataSelected(props.dataSelected)
+  },[props.dataSelected])    
 
   useEffect(() => {
     setProgress(props.progress)
@@ -152,6 +157,26 @@ export default function GraphPanel(props) {
      
   }
    
+  const chooseLines = () => {
+    {props.dataSelected.map(name => (
+      <Line type="monotone" dataKey={name} stroke="blue" dot={false} isAnimationActive={false} hide={graphShow[name]} />
+    ))}
+  } 
+
+  // need to rework the hide so it reads all the selected lines into dict
+  
+  // function to generate an array of n hexcodes that are not similar to each other (for the legend)
+  function generateColors(n) {
+    var colors = []
+    for (var i = 0; i < n; i++) {
+      var color = '#'+Math.floor(Math.random()*16777215).toString(16);
+      while (colors.includes(color)) {
+        color = '#'+Math.floor(Math.random()*16777215).toString(16);
+      }
+      colors.push(color)
+    }
+    return colors
+  }
 
 
   return (
