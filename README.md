@@ -59,3 +59,24 @@ Visualise echook logfile data, playback
 | Custom 7            |
 | Custom 8            |
 | Custom 9            |
+
+
+
+settings : 
+    {
+    'Input Throttle (%) : {
+        name : 'Input Throttle (%)',
+        graph : true,
+        gauge : true,
+        max : 100,
+        min : 0
+        },
+    'Actual Throttle (%)' : {
+        name : 'Actual Throttle (%)',
+        graph : true,
+        gauge : true,
+        max : 100,
+        min : 0
+        }
+    }
+    

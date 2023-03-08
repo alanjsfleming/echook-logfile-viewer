@@ -37,11 +37,15 @@ export default function Telemetry(props) {
     }
 
     const mapDataToTelemetry = ({telemetryData}) => {
-      <TelemetryCard title={telemetryData.title} data={telemetryData.value} unit={findUnit(telemetryData.title)} />
-    }
+      // map data to telemetry card
+      {telemetryData.map(name =>  (
+      <TelemetryCard title={props.telemetry[name]} data={props.telemetry[name]} unit={findUnit(name)} />
+      ))
+    }}
 
     return (
     <>
+    {console.log(props.telemetry)}
     <div class="telemetry-container ">
     <TelemetryCard title={'V1'} data={(props.telemetry['Volts (V)']-props.telemetry['Aux volts (V)']).toFixed(1)} units={'V'} kind={"gauge"}/>
 
