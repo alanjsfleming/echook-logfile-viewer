@@ -1,7 +1,8 @@
 import React from 'react'
 import { GetAccessMenu } from './components/MenuBar'
 import { Link } from 'react-router-dom'
-import VisualiserImg from '../images/visualiserplaceholder.png'
+import VisualiserImg from '../images/VisualiserScreenshot.jpg'
+
 import Footer from './components/Footer'
 
 export default function GetAccess() {

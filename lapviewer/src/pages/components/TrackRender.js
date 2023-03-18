@@ -262,11 +262,10 @@ export default function TrackRender(props) {
             <canvas class="render-layer2" ref={canvasLayer2Ref} {...props} width="500" height="500"/>
           </div>
         </div>
-        <div class="col-2">
-          {loading && <h3>File not loaded...</h3>}
         
-          <button type="button" class="btn btn-outline-primary btn-block livetelembutton" data-toggle="modal" data-target="#settingsModalCenter">Settings for {props.setupData.carName}</button>
-        </div>
+
+
+
 
         <div class="modal fade" id="settingsModalCenter" tabindex="-1" role="dialog" aria-labelledby="settingsModalTitle" aria-hidden="true">
           <div class="modal-dialog modal-xl modal-dialog-centered" role="document">
@@ -335,7 +334,12 @@ export default function TrackRender(props) {
     </>
   )
 }
-
+/*
+<div class="col-2">
+          {loading && <h3>File not loaded...</h3>}
+        
+          <button type="button" class="btn btn-outline-primary btn-block livetelembutton" data-toggle="modal" data-target="#settingsModalCenter">Settings for {props.setupData.carName}</button>
+        </div>*/
 
 //     function findBasicToggle() {
 //  return true
