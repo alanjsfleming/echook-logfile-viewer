@@ -16,10 +16,10 @@ export default function GetAccess() {
         <p class="lead mb-4 text-center">No more excel sheets.</p>
         <p class="lead mb-4 text-center">The visualiser can be used in combination with our Live Telemetry Dashboard to gain a comprehensive understanding of your cars performance after and during races.</p>
         <div class="d-grid gap-2 d-sm-flex justify-content-sm-center mb-5">
-          <div class=" w-25">
+          <div class="w-25 m-auto">
             
              
-              <Link to="/" class="btn btn-primary btn-lg px-4 me-sm-3 form-control">Enter</Link>
+              <Link to="/" class="btn btn-primary btn-block px-4 me-sm-3 form-control">Enter</Link>
          
           </div>
         

@@ -7,7 +7,6 @@ Visualise echook logfile data, playback
 - add menu to control which telemetry shows and the paramters for gauges.
 - Make play/pause function work
 - Mobile responsiveness
-- Fix landing page
 - add graph of average lap amp hours, amps
 
 
@@ -80,3 +79,11 @@ settings :
         }
     }
     
+### To Do
+- [ ] Plotly.js??
+- [ ] Select which gauges and order.
+- [ ] add menu to control which telemetry shows and the paramters for gauges.
+- [ ] Make play/pause function work
+- [ ] Mobile responsiveness
+- [ ] Clean data by selecting start day and time, and end day and time.
+- [ ] add graph of average lap amp hours, amps
