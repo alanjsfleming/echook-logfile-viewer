@@ -24,7 +24,7 @@ export default function MenuBar() {
             <button type="button" class="btn btn-outline-primary livetelembutton" data-toggle="modal" data-target="#exampleModalCenter">
               Give Feedback
             </button>
-            <a class="mx-2" href="https://dashowl.co.uk/"><button  class="btn btn-primary livetelembutton" >Live Telemetry</button></a>
+            <a class="mx-1" href="https://dashowl.co.uk/"><button  class="btn btn-primary livetelembutton" >Live Telemetry</button></a>
         </div>
     
     </div>

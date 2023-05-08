@@ -239,6 +239,7 @@ export default function FileUpload(props) {
     }
 
    
+   
     
 
   return (
@@ -320,6 +321,8 @@ export default function FileUpload(props) {
                                         {(uploadedFileName) ? uploadedFileName : 'Select File'}
                                     </label>
                                 </div>
+
+                               
                             </div>
 
                         </div>
@@ -356,3 +359,13 @@ export default function FileUpload(props) {
     </>
   )
 }
+
+/*
+ <div class="form-group">
+                                    <p>Sampling Rate:</p>
+                                    <label for="samplingRate">Sampling Rate:</label>
+                                    <input type="number" id="samplingRate" name="samplingRate" onChange={handleSampleRateChange} class="form-control text-center" defaultValue={100} />
+                                </div>
+                                function handleSampleRateChange(e) {
+        setSampleDownscale(e.target.value)
+    }*/

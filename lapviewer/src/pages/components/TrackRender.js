@@ -3,6 +3,7 @@ import Telemetry from './Telemetry'
 
 
 import GraphPanel from './GraphPanel'
+import TrackMap from './TrackMap'
 
 
 
@@ -25,6 +26,13 @@ export default function TrackRender(props) {
     const [dataMetrics,setDataMetrics] = useState()
     const [layoutSettings,setLayoutSettings] = useState({  })
 
+    useEffect(()=>{
+      updateCurrentData(props.data[0])
+      setPlaybackProgress(0)
+      setRaceStart(0)
+      completeLoading(false)
+    },[])
+    
     useEffect(()=>{
       if (props.data.length>0){
         setDataMetrics(Object.keys(props.data[0]))
@@ -125,7 +133,10 @@ export default function TrackRender(props) {
       
       
     }
+   
 
+
+    /*
     // Do initial render of track
     const drawTrack = (ctx,canvas,data) => {
         // variable to choose initial render speed
@@ -161,7 +172,7 @@ export default function TrackRender(props) {
       } 
     }
 
-    
+    /*
     // draw dot where current position is function
     const drawCurrentPos = (ctx2,canvas2,item) => {
       
@@ -170,9 +181,9 @@ export default function TrackRender(props) {
       ctx2.fillRect(coords2[0]-10,coords2[1]-10,20,20)
     }
     // only rerender dot and update the telemetry. leave the outline of the track to just render once.
+    */
 
-
-
+    /*
     // When current data changes, redraw the cars position on top canvas.
     useEffect(()=> {
      
@@ -184,9 +195,9 @@ export default function TrackRender(props) {
       drawCurrentPos(context2,canvas2,currentData)
     },[currentData])
 
+    */
 
-
- 
+    /*
     // Draw track initially
     useEffect(()=> {
         const canvas=canvasRef.current
@@ -198,7 +209,7 @@ export default function TrackRender(props) {
         drawTrack(context,canvas,props.data)
         
     },[props.data])
-
+    */
 
 
 
@@ -257,10 +268,9 @@ export default function TrackRender(props) {
     <div class="container-fluid">
       <div class="row top-row">
        <div class="col-4 render-container">
-          <div class="renderCanvases">
-            <canvas class="render-layer1" ref={canvasRef}  {...props} width="500" height="500"/> 
-            <canvas class="render-layer2" ref={canvasLayer2Ref} {...props} width="500" height="500"/>
-          </div>
+   
+          <TrackMap currentData={currentData} latitude={currentData['Latitude (deg)']} longitude={currentData['Longitude (deg)']}/>
+          
         </div>
         
 
@@ -360,3 +370,8 @@ export default function TrackRender(props) {
 //  upper:findBasicUpper(),
 //  lower:findBasicLower()
 //}))
+/*
+<div class="renderCanvases">
+            <canvas class="render-layer1" ref={canvasRef}  {...props} width="500" height="500"/> 
+            <canvas class="render-layer2" ref={canvasLayer2Ref} {...props} width="500" height="500"/>
+          </div>*/
