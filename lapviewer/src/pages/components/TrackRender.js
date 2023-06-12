@@ -4,6 +4,8 @@ import Telemetry from './Telemetry'
 
 import GraphPanel from './GraphPanel'
 import TrackMap from './TrackMap'
+import LineChart from './visualisations/LineChart'
+import LapDataTable from './LapDataTable'
 
 
 
@@ -25,6 +27,9 @@ export default function TrackRender(props) {
     const [raceStart,setRaceStart] = useState()
     const [dataMetrics,setDataMetrics] = useState()
     const [layoutSettings,setLayoutSettings] = useState({  })
+
+    const [lapStarts,setLapStarts] = useState([])
+
 
     useEffect(()=>{
       updateCurrentData(props.data[0])
@@ -262,6 +267,17 @@ export default function TrackRender(props) {
       </form>
     )
 
+    function handleAddLapStart() {
+      const tempValues = lapStarts 
+      tempValues.push(playbackProgress)
+      tempValues.sort(function(a,b){return a-b})
+      setLapStarts(tempValues)
+    }
+
+    function handleClearLapStarts() {
+      setLapStarts([])
+    }
+
 
   return (
     <>
@@ -313,19 +329,20 @@ export default function TrackRender(props) {
              
               
               <GraphPanel data={reducedSampleRateData(props.data,100)} progress={playbackProgress/100} dataSelected={[1,2,3,,4]} raceStart={raceStart/100}/>
+            
           </div>
             <div class="seeking-container">
               <label for="seek">{convertTimestamp(currentData.timestamp)}</label>
               <div class="slidecontainer">
                 <input type="range" id="seek" class="slider" name="seek" ref={progressSlider} onChange={handleSeekChange} value={playbackProgress/props.data.length*1000} min="0" max="1000" disabled={loading}/>
               </div>
-            <div hidden>
-              <button disabled={loading} onClick={handlePlayPause}>{showPlayPauseButton()}</button>
-              <button disabled={loading} onClick={handleRaceStart}>Set start</button>
-              <button disabled={loading} onClick={handleGoToStart}>Go to start</button>
-              <button disabled={loading} onClick={handle1xPlaybackSpeed}>1x</button>
-              <button disabled={loading} onClick={handle10xPlaybackSpeed}>10x</button>
-              <button disabled={loading} onClick={handle100xPlaybackSpeed}>100x</button>
+            <div>
+              <button hidden disabled={loading} onClick={handlePlayPause}>{showPlayPauseButton()}</button>
+              <button hidden disabled={loading} onClick={handleRaceStart}>Set start</button>
+              <button hidden disabled={loading} onClick={handleGoToStart}>Go to start</button>
+              <button hidden disabled={loading} onClick={handle1xPlaybackSpeed}>1x</button>
+              <button hidden disabled={loading} onClick={handle10xPlaybackSpeed}>10x</button>
+              <button hidden disabled={loading} onClick={handle100xPlaybackSpeed}>100x</button>
             </div>
             </div>
           </div>
@@ -339,6 +356,9 @@ export default function TrackRender(props) {
               </div>
             </div>
         </div>
+        <button onClick={handleAddLapStart}>Add Lap Start at current position</button>
+        <button onClick={handleClearLapStarts}>Clear Lap Starts</button>
+        <LapDataTable allData={props.data} lapStarts={lapStarts}/>
       </div>
   
     </>
