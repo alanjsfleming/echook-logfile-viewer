@@ -267,16 +267,7 @@ export default function TrackRender(props) {
       </form>
     )
 
-    function handleAddLapStart() {
-      const tempValues = lapStarts 
-      tempValues.push(playbackProgress)
-      tempValues.sort(function(a,b){return a-b})
-      setLapStarts(tempValues)
-    }
-
-    function handleClearLapStarts() {
-      setLapStarts([])
-    }
+   
 
 
   return (
@@ -338,7 +329,7 @@ export default function TrackRender(props) {
               </div>
             <div>
               <button hidden disabled={loading} onClick={handlePlayPause}>{showPlayPauseButton()}</button>
-              <button hidden disabled={loading} onClick={handleRaceStart}>Set start</button>
+              <button disabled={loading} onClick={handleRaceStart}>Set start time</button>
               <button hidden disabled={loading} onClick={handleGoToStart}>Go to start</button>
               <button hidden disabled={loading} onClick={handle1xPlaybackSpeed}>1x</button>
               <button hidden disabled={loading} onClick={handle10xPlaybackSpeed}>10x</button>
@@ -356,9 +347,8 @@ export default function TrackRender(props) {
               </div>
             </div>
         </div>
-        <button onClick={handleAddLapStart}>Add Lap Start at current position</button>
-        <button onClick={handleClearLapStarts}>Clear Lap Starts</button>
-        <LapDataTable allData={props.data} lapStarts={lapStarts}/>
+     
+        <LapDataTable allData={props.data} playbackProgress={playbackProgress} raceStart={raceStart}/>
       </div>
   
     </>
