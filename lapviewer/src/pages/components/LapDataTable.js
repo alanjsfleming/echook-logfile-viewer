@@ -146,7 +146,7 @@ export default function LapDataTable({allData,playbackProgress,raceStart}) {
   return (
     <>
     <hr></hr>
-   
+    <DriverSummary lapData={lapData}/>
     <h2 className="text-center">Lap Data</h2>
     {lapStarts.length>0 && <p>Ready</p>}
     <div class="btn-group my-1">
