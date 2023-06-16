@@ -35,7 +35,26 @@ export default function LapDataTable({allData,playbackProgress,raceStart}) {
         setLapStarts(tempLapStarts)
     }  
 
+    function handleCopyLapTable() {
+        const elTable = document.getElementById("lapDataTable")
+        let range, sel;
 
+        if (document.createRange && window.getSelection) {
+            range = document.createRange();
+            sel = window.getSelection();
+            sel.removeAllRanges();
+            try {
+                range.selectNodeContents(elTable);
+                sel.addRange(range);
+            } catch (e) {
+                range.selectNode(elTable);
+                sel.addRange(range);
+            }
+            document.execCommand("copy");
+            sel.removeAllRanges();
+        }
+        console.log('Element Copied!')
+    }
 
     function filterSeparateLaps() {
         console.log("here")
@@ -107,7 +126,7 @@ export default function LapDataTable({allData,playbackProgress,raceStart}) {
 
 
     const LapComponent = () => (
-        <table class="table table-striped text-center table-hover">
+        <table id="lapDataTable" class="table text-center table-hover">
             <thead>
                 <tr>
                     <th scope="col">Lap #</th>
@@ -153,7 +172,7 @@ export default function LapDataTable({allData,playbackProgress,raceStart}) {
         <button className="btn btn-primary" onClick={handleClearLapStarts}>Clear Laps</button>
         <button className="btn btn-primary"onClick={handleSetStartingLine}>Set Starting Line at Current Location</button>
         <button className="btn btn-primary" onClick={handlePopulateTable}>Calculate Laps</button>
-      
+        <button className="btn btn-outline-secondary" onClick={handleCopyLapTable}>Copy to Clipboard</button>
     </div>
     
     <LapComponent />
