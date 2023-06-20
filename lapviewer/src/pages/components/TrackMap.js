@@ -32,7 +32,7 @@ export default function TrackMap(props) {
 
   return (
     <>
-    <Map center={center} zoom={15} animate={false}>
+    <Map center={center} zoom={15} animate={false} style={{width:"100%"}} height={300}>
       <Marker anchor={coords} color="#009578" width={50}/>
       <button class="btn btn-outline-dark" onClick={handleRecentre} >Centre on Car</button>
     </Map>

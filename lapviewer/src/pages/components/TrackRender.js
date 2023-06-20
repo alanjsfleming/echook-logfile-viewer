@@ -273,18 +273,8 @@ export default function TrackRender(props) {
   return (
     <>
     <div class="container-fluid">
-      <div class="row top-row">
-       <div class="col-4 render-container">
-   
-          <TrackMap currentData={currentData} latitude={currentData['Latitude (deg)']} longitude={currentData['Longitude (deg)']}/>
-          
-        </div>
-        
 
-
-
-
-        <div class="modal fade" id="settingsModalCenter" tabindex="-1" role="dialog" aria-labelledby="settingsModalTitle" aria-hidden="true">
+    <div class="modal fade" id="settingsModalCenter" tabindex="-1" role="dialog" aria-labelledby="settingsModalTitle" aria-hidden="true">
           <div class="modal-dialog modal-xl modal-dialog-centered" role="document">
             <div class="modal-content">
               <div class="modal-header">
@@ -314,11 +304,16 @@ export default function TrackRender(props) {
           </div>
         </div>
 
-
-        <div class="col-6 card">
-          <div class="row">
-             
-              
+      
+      <div class="top-row">
+       <div style={{width:"100%"}}>
+   
+          <TrackMap currentData={currentData} latitude={currentData['Latitude (deg)']} longitude={currentData['Longitude (deg)']}/>    
+      </div>
+        
+      <div class="w-100">
+        <div style={{width:"100%"}}>
+  
               <GraphPanel data={reducedSampleRateData(props.data,100)} progress={playbackProgress/100} dataSelected={[1,2,3,,4]} raceStart={raceStart/100}/>
             
           </div>
@@ -339,7 +334,8 @@ export default function TrackRender(props) {
           </div>
         
         </div>
-        
+
+
         <div class="row">
           <div class="bottom-panel">
               <div class="col">

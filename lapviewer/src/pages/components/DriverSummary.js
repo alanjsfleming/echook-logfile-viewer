@@ -107,7 +107,7 @@ export default function DriverSummary({lapData}) {
         </form>
     </div>
 
-    <table hidden={!setUpMode} class="table table-hover">
+    <table hidden={!setUpMode} class="table table-hover fixed-header  w-75 m-auto">
         <thead>
             <tr>
                 <th>Driver</th>

@@ -126,7 +126,7 @@ export default function LapDataTable({allData,playbackProgress,raceStart}) {
 
 
     const LapComponent = () => (
-        <table id="lapDataTable" class="table text-center table-hover">
+        <table id="lapDataTable" class="table text-center table-hover fixed-header w-75 m-auto">
             <thead>
                 <tr>
                     <th scope="col">Lap #</th>
@@ -139,7 +139,7 @@ export default function LapDataTable({allData,playbackProgress,raceStart}) {
                     <th scope="col">aSpeed (mph)</th>
                 </tr>
             </thead>
-            <tbody>
+            <tbody className=''>
                 {
                 
                 lapData?.length>0 ? lapData.map((lap,index)=>(
@@ -165,19 +165,25 @@ export default function LapDataTable({allData,playbackProgress,raceStart}) {
   return (
     <>
     <hr></hr>
+    <div className="data-tables-row">
+        <div class="w-100">
     
-    <h2 className="text-center">Lap Data</h2>
-    {lapStarts.length>0 && <p>Ready</p>}
-    <div class="btn-group my-1">
-        <button className="btn btn-primary" onClick={handleClearLapStarts}>Clear Laps</button>
-        <button className="btn btn-primary"onClick={handleSetStartingLine}>Set Starting Line at Current Location</button>
-        <button className="btn btn-primary" onClick={handlePopulateTable}>Calculate Laps</button>
-        <button className="btn btn-outline-secondary" onClick={handleCopyLapTable}>Copy to Clipboard</button>
-    </div>
-    
-    <LapComponent />
+            <h2 className="text-center">Lap Data</h2>
+            {lapStarts.length>0 && <p>Ready</p>}
+            <div class="btn-group my-1">
+                <button className="btn btn-primary" onClick={handleClearLapStarts}>Clear Laps</button>
+                <button className="btn btn-primary"onClick={handleSetStartingLine}>Set Starting Line at Current Location</button>
+                <button className="btn btn-primary" onClick={handlePopulateTable}>Calculate Laps</button>
+                <button className="btn btn-outline-secondary" onClick={handleCopyLapTable}>Copy to Clipboard</button>
+            </div>
+            
+            <LapComponent />
+        </div>
 
-    
+        <div class="w-100">
+            <DriverSummary lapData={lapData}/>
+        </div>
+    </div>
     </>
   ) 
 }

@@ -37,6 +37,61 @@ code {
   z-index: 1;
 }
 
+.top-row {
+  display:grid;
+  justify-items: center;
+  grid-template-columns: 100%;
+  grid-column-gap: 0;
+  grid-row-gap: 0.5rem 
+}
+
+@media only screen and (min-width: 1000px) {
+  .top-row {
+    grid-template-columns: 30% 70%;
+  }
+}
+
+.data-tables-row {
+  display:grid;
+  justify-items: center;
+  grid-template-columns: 100%;
+  grid-column-gap: 0;
+  grid-row-gap: 0.5rem
+
+}
+
+@media only screen and (min-width: 900px) {
+  .data-tables-row {
+    grid-template-columns: 45% 45%;
+    grid-column-gap:10%;
+
+  }
+}
+
+.fixed-header {
+  width: 100%;
+  table-layout: collapse;
+}
+
+.fixed-header tbody {
+  display: block;
+  width: 100%;
+  overflow: auto;
+  height: 400px;
+}
+
+.fixed-header thead tr {
+  display: block;
+  width: 100%;
+}
+
+.fixed-header th, .fixed-header td {
+  text-align: center;
+  width: 100px;
+}
+
+
+
 
 .renderCanvases {
 

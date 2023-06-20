@@ -1,5 +1,5 @@
 import React, { useState, useEffect }from 'react'
-import { LineChart,Legend, Line, CartesianGrid,XAxis,YAxis,ReferenceLine } from 'recharts'
+import { LineChart,Legend, Line, CartesianGrid,XAxis,YAxis,ReferenceLine, ResponsiveContainer } from 'recharts'
 
 
 
@@ -181,7 +181,8 @@ export default function GraphPanel(props) {
 
   return (
     <>
-    <LineChart width={880} height={400} data={props.data}>
+    <ResponsiveContainer width="100%" height={500} class="">
+    <LineChart data={props.data}>
         <Line type="monotone" dataKey="Input throttle (%)" stroke="blue" dot={false} isAnimationActive={false} hide={graphShow.inputThrottle}/>
         <Line type="monotone" dataKey="Volts (V)" stroke="#231651" dot={false}  isAnimationActive={false}  hide={graphShow.volts}/>
         <Line type="monotone" dataKey="Aux volts (V)" stroke="#4DCCBD" dot={false} isAnimationActive={false} hide={graphShow.auxVolts}/>
@@ -203,6 +204,7 @@ export default function GraphPanel(props) {
         <XAxis/>
         <YAxis type='number' domain={[0,'dataMax']} allowDataOverflow={false}/>
     </LineChart>
+    </ResponsiveContainer>
     </>
   )
 }
