@@ -83,8 +83,7 @@ export default function LapDataTable({allData,playbackProgress,raceStart}) {
     }
   
       function handleClearLapStarts() {
-        setLapStarts([])
-        setLapData()
+        setLapData([])
       }
 
     function calculateAllLapData(lapDataArrays) {
@@ -126,17 +125,18 @@ export default function LapDataTable({allData,playbackProgress,raceStart}) {
 
 
     const LapComponent = () => (
-        <table id="lapDataTable" class="table text-center table-hover fixed-header w-75 m-auto">
+        <div className="table-responsive">
+        <table id="lapDataTable" class="table text-center table-hover fixed-header w-100 m-auto">
             <thead>
                 <tr>
-                    <th scope="col">Lap #</th>
-                    <th scope="col">Time </th>
-                    <th scope="col">AH</th>
-                    <th scope="col">aV1</th>
-                    <th scope="col">aA</th>
-                    <th scope="col">aT1</th>
-                    <th scope="col">aT2</th>
-                    <th scope="col">aSpeed (mph)</th>
+                    <th className="p-0" scope="col">Lap #</th>
+                    <th className="p-0" scope="col">Time </th>
+                    <th className="p-0" scope="col">AH</th>
+                    <th className="p-0" scope="col">aV1</th>
+                    <th className="p-0" scope="col">aA</th>
+                    <th className="p-0" scope="col">aT1</th>
+                    <th className="p-0" scope="col">aT2</th>
+                    <th className="p-0" scope="col">aSpeed (mph)</th>
                 </tr>
             </thead>
             <tbody className=''>
@@ -160,6 +160,7 @@ export default function LapDataTable({allData,playbackProgress,raceStart}) {
             </tbody>
     
         </table>
+        </div>
     )
 
   return (
@@ -169,12 +170,12 @@ export default function LapDataTable({allData,playbackProgress,raceStart}) {
         <div class="w-100">
     
             <h2 className="text-center">Lap Data</h2>
-            {lapStarts.length>0 && <p>Ready</p>}
+            {lapData?.length>0 && <small>The laps highlighted in yellow look like they might be pitstops...</small>}
             <div class="btn-group my-1">
-                <button className="btn btn-primary" onClick={handleClearLapStarts}>Clear Laps</button>
-                <button className="btn btn-primary"onClick={handleSetStartingLine}>Set Starting Line at Current Location</button>
-                <button className="btn btn-primary" onClick={handlePopulateTable}>Calculate Laps</button>
-                <button className="btn btn-outline-secondary" onClick={handleCopyLapTable}>Copy to Clipboard</button>
+                <button className="btn btn-outline-warning" onClick={handleClearLapStarts}>Clear Laps</button>
+                <button className={(lapStarts?.length<1 && lapData?.length<1) ? "btn btn-primary" : "btn btn-outline-primary"} onClick={handleSetStartingLine}>Set Starting Line at Current Location</button>
+                <button className={(lapStarts?.length>0 && lapData?.length<1) ? "btn btn-primary" : "btn btn-outline-primary"} onClick={handlePopulateTable}>Calculate Laps</button>
+                <button className={(lapStarts?.length>0 && lapData?.length>0) ? "btn btn-secondary" : "btn btn-outline-secondary"} onClick={handleCopyLapTable}>Copy to Clipboard</button>
             </div>
             
             <LapComponent />

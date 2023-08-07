@@ -1,4 +1,4 @@
-import React,{ useRef } from 'react'
+import React,{ useEffect, useRef } from 'react'
 import { elapsedTimeIntoString } from '../../utils/TimeFunctions'
 
 export default function DriverSummary({lapData}) {
@@ -32,7 +32,7 @@ export default function DriverSummary({lapData}) {
         let total = 0
         let count = 0
         array.forEach(function(item,index){
-            total+=parseInt(item);
+            total+=parseFloat(item);
             count++
         })
         return total/count
@@ -42,7 +42,7 @@ export default function DriverSummary({lapData}) {
         console.log(array)
         let total = 0
         array.forEach(function(item,index){
-            total+=parseInt(item);
+            total+=parseFloat(item);
         })
         return total
     }
@@ -57,11 +57,9 @@ export default function DriverSummary({lapData}) {
         drivers.forEach(function(driver,index){
             const driverAverageArray = []
             for (var i = 0; i < lapData.length; i++) {
-                if (i >= driver.firstLap && i <= driver.lastLap) {
-                    if (!(i == driver.firstLap || i == driver.lastLap)) {
-                    driverAverageArray.push(lapData[i-1])
+                if (i >= driver.firstLap-1 && i <= driver.lastLap-1) {
+                    driverAverageArray.push(lapData[i]) 
                 }
-            }
             }
             driverAverageArrays.push(driverAverageArray)
         })
@@ -92,9 +90,11 @@ export default function DriverSummary({lapData}) {
   return (
     <>
     <h3>Drivers</h3>
-    <button onClick={handleShowHideSetup}>{setUpMode ? "Show Setup" : "Hide Setup"}</button>
-    <button onClick={handleClearDrivers}>Clear Driver List</button>
-    <button onClick={calculateDriverAverages}>Calculate Driver Averages</button>
+    <div className="btn-group w-100">
+        <button className={(driverData?.length<1) ? "btn btn-primary w-25" : "btn btn-outline-primary w-25"} onClick={handleShowHideSetup}>{setUpMode ? "Add driver" : "Hide"}</button>
+        <button className="btn btn-outline-warning w-25" onClick={handleClearDrivers}>Clear Driver List</button>
+        <button className="btn btn-primary w-50" onClick={calculateDriverAverages}>Calculate Driver Averages</button>
+    </div>
     <div hidden={setUpMode} className="card p-1">
         <form className="form" ref={formRef}>
             <label>Driver Name</label>
@@ -106,34 +106,37 @@ export default function DriverSummary({lapData}) {
             <button type="button" onClick={addDriver}>Add Driver</button>
         </form>
     </div>
-
-    <table hidden={!setUpMode} class="table table-hover fixed-header  w-75 m-auto">
-        <thead>
-            <tr>
-                <th>Driver</th>
-                <th>aTime</th>
-                <th>aAH</th>
-                <th>tAH</th>
-                <th>aV1</th>
-                <th>aA</th>
-                <th>aSpeed</th>
-            </tr>
-        </thead>
-        <tbody>
-            {drivers.map((driver,index)=>(
+    <div className="table-responsive">
+        <table hidden={!setUpMode} class="table table-hover fixed-header m-0 p-0">
+            <thead className="table-header">
                 <tr>
-                    <th scope="row">{driver.name}<small> ({driver.firstLap+"-"+driver.lastLap})</small></th>
-                    <td>{driverData[index][index]?.time}</td>
-                    <td>{driverData[index][index]?.aAH}</td>
-                    <td>{driverData[index][index]?.tAH}</td>
-                    <td>{driverData[index][index]?.aV1}</td>
-                    <td>{driverData[index][index]?.aA}</td>
-                    <td>{driverData[index][index]?.aSpd}</td>
+                    <th className="p-0">Driver</th>
+                    <th className="p-0">aTime</th>
+                    <th className="p-0">aAH</th>
+                    <th className="p-0">tAH</th>
+                    <th className="p-0">aV1</th>
+                    <th className="p-0">aA</th>
+                    <th className="p-0">aSpeed</th>
                 </tr>
-            ))}
+            </thead>
+            <tbody>
+                {drivers?.length>0 && drivers?.map((driver,index)=>(
+                    <>
+                    <tr>
+                        <th scope="row" className="p-0"><span className="d-flex flex-column text-center">{driver["name"]}<small> ({driver["firstLap"]+"-"+driver["lastLap"]})</small></span></th>
+                        <td>{(driverData?.length>0) && driverData[index][index]?.time}</td>
+                        <td>{(driverData?.length>0) && driverData[index][index]?.aAH}</td>
+                        <td>{(driverData?.length>0) && driverData[index][index]?.tAH}</td>
+                        <td>{(driverData?.length>0) && driverData[index][index]?.aV1}</td>
+                        <td>{(driverData?.length>0) && driverData[index][index]?.aA}</td>
+                        <td>{(driverData?.length>0) && driverData[index][index]?.aSpd}</td>
+                    </tr>
+                    </>
+                ))}
 
-        </tbody>
-    </table>
+            </tbody>
+        </table>
+    </div>
     </>
   )
 }

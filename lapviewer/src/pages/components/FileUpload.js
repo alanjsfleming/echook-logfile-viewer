@@ -272,7 +272,7 @@ export default function FileUpload(props) {
                                 </div>
                             </div>
                     
-                            <div class="tab" hidden={!(formProgress==="33%")}>
+                            <div hidden class="tab" hidden={!(formProgress==="33%")}>
                                 <h5>Track setup:</h5>
                                 <div class="form-group">
                                     <label for="trackDistanceSelect">Track:</label>

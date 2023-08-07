@@ -21,13 +21,11 @@ export default function TrackMap(props) {
     {console.log(location)}
     return (
       <Marker anchor={location} color="#009578" />
-      
     )
   }
   
   function handleRecentre() {
     setCenter([parseFloat(props.currentData['Latitude (deg)']),parseFloat(props.currentData['Longitude (deg)'])])
-    console.log("Hello")
   }
 
   return (

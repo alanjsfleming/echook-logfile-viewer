@@ -7,6 +7,11 @@ body {
   -moz-osx-font-smoothing: grayscale;
 }
 
+html,body {
+  padding: 0;
+  margin: 0;
+}
+
 code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
@@ -60,10 +65,16 @@ code {
 
 }
 
+.table {
+  width: 100%;
+  margin: 0;
+  padding: 0;
+}
+
 @media only screen and (min-width: 900px) {
   .data-tables-row {
-    grid-template-columns: 45% 45%;
-    grid-column-gap:10%;
+    grid-template-columns: 47.5% 47.5%;
+    grid-column-gap:5%;
 
   }
 }
@@ -95,7 +106,6 @@ code {
 
 .renderCanvases {
 
-
 }
 
 
@@ -106,7 +116,6 @@ code {
 .livetelembutton {
   border-radius: 0.7rem;
 }
-
 
 .render-container {
   align-items: center;
@@ -299,3 +308,4 @@ input[type="file"]{
  
   text-decoration: none;
 }
+

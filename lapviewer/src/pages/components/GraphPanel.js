@@ -181,7 +181,7 @@ export default function GraphPanel(props) {
 
   return (
     <>
-    <ResponsiveContainer width="100%" height={500} class="">
+    <ResponsiveContainer width="100%" height={500} classname="">
     <LineChart data={props.data}>
         <Line type="monotone" dataKey="Input throttle (%)" stroke="blue" dot={false} isAnimationActive={false} hide={graphShow.inputThrottle}/>
         <Line type="monotone" dataKey="Volts (V)" stroke="#231651" dot={false}  isAnimationActive={false}  hide={graphShow.volts}/>

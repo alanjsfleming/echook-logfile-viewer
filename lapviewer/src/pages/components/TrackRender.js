@@ -306,13 +306,13 @@ export default function TrackRender(props) {
 
       
       <div class="top-row">
-       <div style={{width:"100%"}}>
+       <div className="w-100">
    
           <TrackMap currentData={currentData} latitude={currentData['Latitude (deg)']} longitude={currentData['Longitude (deg)']}/>    
       </div>
         
       <div class="w-100">
-        <div style={{width:"100%"}}>
+        <div className="w-100">
   
               <GraphPanel data={reducedSampleRateData(props.data,100)} progress={playbackProgress/100} dataSelected={[1,2,3,,4]} raceStart={raceStart/100}/>
             
