@@ -4,7 +4,7 @@ import Telemetry from './Telemetry'
 
 import GraphPanel from './GraphPanel'
 import TrackMap from './TrackMap'
-import LineChart from './visualisations/LineChart'
+
 import LapDataTable from './LapDataTable'
 
 
@@ -324,7 +324,7 @@ export default function TrackRender(props) {
               </div>
             <div>
               <button hidden disabled={loading} onClick={handlePlayPause}>{showPlayPauseButton()}</button>
-              <button disabled={loading} onClick={handleRaceStart}>Set start time</button>
+              <button className="btn btn-light border" disabled={loading} onClick={handleRaceStart}>Set start time</button>
               <button hidden disabled={loading} onClick={handleGoToStart}>Go to start</button>
               <button hidden disabled={loading} onClick={handle1xPlaybackSpeed}>1x</button>
               <button hidden disabled={loading} onClick={handle10xPlaybackSpeed}>10x</button>

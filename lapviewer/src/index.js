@@ -6,12 +6,14 @@ import App from './pages/App';
 import GetAccess from './pages/GetAccess';
 import NoPage from './pages/NoPage';
 import reportWebVitals from './reportWebVitals';
+import AnalyticsComponent from './features/AnalyticsComponent';
 
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
   <React.StrictMode>
     <BrowserRouter basename="/">
+      <AnalyticsComponent />
       <Routes>
         <Route path="/" element={<App />} />
         <Route path="/get-access" element={<GetAccess />} />

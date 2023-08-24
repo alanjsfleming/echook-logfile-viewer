@@ -57,23 +57,21 @@ export default function FileUpload(props) {
     function handleUploadFormNext(e) {
         switch (formProgress) {
             case "0%":
-                setFormProgress("33%")
+                setFormProgress("50%")
                 break
-            case "33%":
-                setFormProgress("66%")
+            case "50%":
+                setFormProgress("100%")
         }
     }
 
     function handleUploadFormBack(e) {
         switch (formProgress) {
             case "100%":
-                setFormProgress("66%")
+                setFormProgress("50%")
                 break
-            case "66%":
-                setFormProgress("33%")
-                break
-            case "33%":
+            case "50%":
                 setFormProgress("0%")
+                break
         }
     }
 
@@ -270,68 +268,28 @@ export default function FileUpload(props) {
                                     <label for="carAmpHours">Battery Capacity (Ah):</label>
                                     <input type="number" onChange={handleChangeSetupData} class="form-control text-center" id="carAmpHours" name="carAmpHours" defaultValue="30" />
                                 </div>
-                            </div>
-                    
-                            <div hidden class="tab" hidden={!(formProgress==="33%")}>
-                                <h5>Track setup:</h5>
-                                <div class="form-group">
-                                    <label for="trackDistanceSelect">Track:</label>
-                                    <select class="form-control text-center" onChange={handleChangeSetupData} name="trackDistanceSelect">
-                                        <option value="2478">Aintree</option>
-                                        <option value="418">Alford</option>
-                                        <option value="1287">Anglesea</option>
-                                        <option value="2350">Aragon</option>
-                                        <option value="3700">Barber Motor Sports Park</option>
-                                        <option value="1979">Bedford</option>
-                                        <option value="1287">Blyton Park</option>
-                                        <option value="1232">Cartagena</option>
-                                        <option value="2977">Castle Combe</option>
-                                        <option value="660">Chambers County</option>
-                                        <option value="610">Chattanooga GP</option>
-                                        <option value="1610">Choccolocco Green Prix</option>
-                                        <option value="1851">Croft</option>
-                                        <option value="1070">Columbus GP</option>
-                                        <option value="1110">Divers Power Grand Prix</option>
-                                        <option value="1255">Dunsfold</option>
-                                        <option value="1834">East Fortune</option>
-                                        <option value="1642">Ford Dunton</option>
-                                        <option value="3862">Goodwood</option>
-                                        <option value="1690">Grissom</option>
-                                        <option value="3492">Hethel</option>
-                                        <option value="1610">Jemison Toyota Classic</option>
-                                        <option value="1609">Mallory Park</option>
-                                        <option value="1130">MSR Houston</option>
-                                        <option value="2639">Navarra</option>
-                                        <option value="2414">Predannack</option>
-                                        <option value="2639">Silverstone</option>
-                                        <option value="2200">Talladega</option>
-                                    </select>
-                                    <br></br>
-                                    <input ref={trackDistanceFieldRef} type="number" class="form-control text-center" id="trackDistance" onChange={handleChangeSetupData} name="trackDistance" placeholder={setupData.trackDistance + "m ( or enter custom track length )"} />
-                                </div>
-                            </div>
 
-                            <div class="tab" hidden={!(formProgress==="66%")}>
                                 <h5>eChook Logfile:</h5>
                                 <div class="form-group">
                                 <p>File:</p>
-                                    <label class="custom-file btn-primary btn" for="fileUpload">
+                                    <label class={(uploadedFileName) ? "custom-file btn-outline-primary btn" : "custom-file btn-primary btn"} for="fileUpload">
                                 
                                         <input type="file" id="fileUpload" name="fileUpload" ref={fileUploadRef} accept=".csv" onChange={fileUploaded} />
                                         {(uploadedFileName) ? uploadedFileName : 'Select File'}
                                     </label>
                                 </div>
-
-                               
                             </div>
+                    
+                            
+
+                           
 
                         </div>
                    
                     <br></br>
                         <div class="btn-group">
-                            {!(formProgress==="0%" || formProgress==="100%") && <button onClick={handleUploadFormBack} class="btn btn-outline-primary col-6">Back</button>}
-                            {!(formProgress==="66%" || formProgress==="100%") && <button onClick={handleUploadFormNext} class="btn btn-primary">Next</button>}
-                            {(formProgress==="66%" || !formProgress==="100%") && <button onClick={handleUploadFormSubmit} disabled={!uploadedFileName} class="btn btn-primary col-6">Go</button>}
+                           
+                            <button onClick={handleUploadFormSubmit} disabled={!uploadedFileName} class={(uploadedFileName) ? "btn btn-primary col-12" : "btn btn-outline-primary col-12"}>Analyse</button>
                         </div>
                         
                   
@@ -369,3 +327,43 @@ export default function FileUpload(props) {
                                 function handleSampleRateChange(e) {
         setSampleDownscale(e.target.value)
     }*/
+
+    /*
+    <div class="tab" hidden={!(formProgress==="50%")}>
+                                <h5>Track setup:</h5>
+                                <div class="form-group">
+                                    <label for="trackDistanceSelect">Track:</label>
+                                    <select class="form-control text-center" onChange={handleChangeSetupData} name="trackDistanceSelect">
+                                        <option value="2478">Aintree</option>
+                                        <option value="418">Alford</option>
+                                        <option value="1287">Anglesea</option>
+                                        <option value="2350">Aragon</option>
+                                        <option value="3700">Barber Motor Sports Park</option>
+                                        <option value="1979">Bedford</option>
+                                        <option value="1287">Blyton Park</option>
+                                        <option value="1232">Cartagena</option>
+                                        <option value="2977">Castle Combe</option>
+                                        <option value="660">Chambers County</option>
+                                        <option value="610">Chattanooga GP</option>
+                                        <option value="1610">Choccolocco Green Prix</option>
+                                        <option value="1851">Croft</option>
+                                        <option value="1070">Columbus GP</option>
+                                        <option value="1110">Divers Power Grand Prix</option>
+                                        <option value="1255">Dunsfold</option>
+                                        <option value="1834">East Fortune</option>
+                                        <option value="1642">Ford Dunton</option>
+                                        <option value="3862">Goodwood</option>
+                                        <option value="1690">Grissom</option>
+                                        <option value="3492">Hethel</option>
+                                        <option value="1610">Jemison Toyota Classic</option>
+                                        <option value="1609">Mallory Park</option>
+                                        <option value="1130">MSR Houston</option>
+                                        <option value="2639">Navarra</option>
+                                        <option value="2414">Predannack</option>
+                                        <option value="2639">Silverstone</option>
+                                        <option value="2200">Talladega</option>
+                                    </select>
+                                    <br></br>
+                                    <input ref={trackDistanceFieldRef} type="number" class="form-control text-center" id="trackDistance" onChange={handleChangeSetupData} name="trackDistance" placeholder={setupData.trackDistance + "m ( or enter custom track length )"} />
+                                </div>
+                            </div>*/

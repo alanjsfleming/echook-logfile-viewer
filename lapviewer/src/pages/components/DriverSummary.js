@@ -26,6 +26,7 @@ export default function DriverSummary({lapData}) {
 
     function handleClearDrivers() {
         setDrivers([])
+        setDriverData([])
     }
 
     function calculateAverageValue(array){
@@ -52,6 +53,7 @@ export default function DriverSummary({lapData}) {
     // filter each drivers lap numbers out of the averages array and calculate the average of the remaining values.
 
     function calculateDriverAverages() {
+        handleShowHideSetup()
         const driverAverageArrays = []
         // Join the average values of each lap into a single array for each drivers laps
         drivers.forEach(function(driver,index){
@@ -91,7 +93,7 @@ export default function DriverSummary({lapData}) {
     <>
     <h3>Drivers</h3>
     <div className="btn-group w-100">
-        <button className={(driverData?.length<1) ? "btn btn-primary w-25" : "btn btn-outline-primary w-25"} onClick={handleShowHideSetup}>{setUpMode ? "Add driver" : "Hide"}</button>
+        <button disabled={driverData?.length>0} className={(driverData?.length<1) ? "btn btn-primary w-25" : "btn btn-outline-primary w-25"} onClick={handleShowHideSetup}>{setUpMode ? "Add driver" : "Hide"}</button>
         <button className="btn btn-outline-warning w-25" onClick={handleClearDrivers}>Clear Driver List</button>
         <button className="btn btn-primary w-50" onClick={calculateDriverAverages}>Calculate Driver Averages</button>
     </div>
