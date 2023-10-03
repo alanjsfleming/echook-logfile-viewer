@@ -202,7 +202,7 @@ export default function GraphPanel(props) {
         <ReferenceLine x={Math.floor(props.raceStart)} stroke="black" />
         <Legend verticalAlign="bottom" height={36} onClick={handleClick}/>
         <XAxis/>
-        <YAxis type='number' domain={[0,'dataMax']} allowDataOverflow={false}/>
+        <YAxis type='number' domain={[0,dataMax=>((!graphShow.distance) ? 75000 : dataMax <= 50 ? 50 : 150)]} allowDataOverflow={false}/>
     </LineChart>
     </ResponsiveContainer>
     </>
