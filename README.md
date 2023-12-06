@@ -1,14 +1,36 @@
-# GA-lapviewer
-Visualise echook logfile data, playback
+# eChook Logfile Viewer
 
-## todo 
-- Plotly.js??
-- Select which gauges and order.
-- add menu to control which telemetry shows and the paramters for gauges.
-- Make play/pause function work
-- Mobile responsiveness
-- add graph of average lap amp hours, amps
+This could be useful for anyone who uses an eChook to log data. I volunteer the Green Arrows Formula 24 team and we use an eChook to log data from the car.
 
+I spent a lot of time trying to get the eChook data into a format that was clear to understand on Excel. 
+
+I wanted to be able to see the data in a more visual way, and to be able to see the data from multiple laps at once and compare them. 
+
+## Usage 
+
+You can ```git clone``` this repo and run it locally, or you can use the hosted version at [https://vis.dashowl.co.uk](https://vis.dashowl.co.uk).
+
+### Local Usage
+
+1. Clone this repo
+2. ```cd lapviewer```
+2. ```npm install```
+3. ```npm start```
+4. Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+
+### Use the hosted version
+
+Simply go to the hosted site at [https://vis.dashowl.co.uk](https://vis.dashowl.co.uk).
+
+### Upload a logfile
+
+Upload an [eChook](https://github.com/echook) logfile and view the telemetry data in a browser. There is an example logfile you can use to try this out in the ```example logfiles``` folder.
+
+### Input Parameters
+Battery Capacity (Ah) : The capacity of your battery in Amp Hours. This is used to calculate the % Battery remaining. 
+
+## Data headings
+The program is expecting these following data headings. If you have a different heading, I recommend you make a copy of your file and manually change the headings to match these for now. I plan to make this more flexible in the future.
 
 | Data headings:      | type           | range        | graphable? | notes |
 | --------------------| -------------- | -----------  | ---------- |  ---- |
@@ -20,8 +42,8 @@ Visualise echook logfile data, playback
 | Amps (A)            | real (2 dp)    | 0 < x < ~130 |  yes       |        |
 | Amp hours (Ah)      | real (2 dp)    | 0 < x < ~30  |  yes       |         |
 | Motor speed (RPM)   | integer        | 0 < x < ~2500 | yes       | ( sticks around 2000) |
-| Speed (m/s)         | real (1 dp)    | 0 < x ~15    |  yes         | ( i think this needs converted) |
-| Distance (m)        | real (2 dp)    | 0 < x < ~100000|yes          |  (this could be a big number) |
+| Speed (m/s)         | real (1 dp)    | 0 < x ~15    |  yes         |  |
+| Distance (m)        | real (2 dp)    | 0 < x < ~100000|yes          |  (big number) |
 | Temp1 (C)           | real (1 dp)    | 0 < x < 40   |  yes             |            |
 | Temp2 (C)           | real (1 dp)    | 0 < x < 40   |  yes            |            |
 | Gear ratio          | real (2 dp)    | 0 to 10 ?    |  yes             |           |
@@ -61,29 +83,12 @@ Visualise echook logfile data, playback
 
 
 
-settings : 
-    {
-    'Input Throttle (%) : {
-        name : 'Input Throttle (%)',
-        graph : true,
-        gauge : true,
-        max : 100,
-        min : 0
-        },
-    'Actual Throttle (%)' : {
-        name : 'Actual Throttle (%)',
-        graph : true,
-        gauge : true,
-        max : 100,
-        min : 0
-        }
-    }
+
     
-### To Do
-- [ ] Plotly.js??
-- [ ] Select which gauges and order.
-- [ ] add menu to control which telemetry shows and the paramters for gauges.
-- [ ] Make play/pause function work
-- [ ] Mobile responsiveness
-- [ ] Clean data by selecting start day and time, and end day and time.
-- [ ] add graph of average lap amp hours, amps
+## Planned Features
+- Select which gauges and order.
+- Add menu to select which columns are visualised and the paramters for gauges.
+- Ability to 'play' the data, as though it were live.
+- Mobile responsive
+- Easier way to clean extra data by selecting start day and time, and end day and time.
+- More flexible graphing options
