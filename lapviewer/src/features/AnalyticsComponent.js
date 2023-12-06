@@ -1,25 +1,25 @@
-import { logEvent } from 'firebase/analytics';
-import React from 'react'
-import { useEffect } from 'react';
-import { useHistory, useLocation } from 'react-router-dom';
-import { analytics } from '../firebase';
+import { logEvent } from "firebase/analytics";
+import React from "react";
+import { useEffect } from "react";
+import { useHistory, useLocation } from "react-router-dom";
+import { analytics } from "../firebase";
 
 // In future I possibly want to add a way to log Events?
 // Will I have to disable this if they dont want to be tracked? yes
 
 export default function AnalyticsComponent() {
-
   const logCurrentPage = () => {
-    logEvent(analytics, 'screen_view', { screen_name: window.location.pathname, page_title: document.title });
-  }
+    logEvent(analytics, "screen_view", {
+      screen_name: window.location.pathname,
+      page_title: document.title,
+    });
+  };
 
   const location = useLocation();
 
-  useEffect(()=>{
+  useEffect(() => {
     logCurrentPage();
-  },[location]);
+  }, [location]);
 
-  return (
-    <div></div>
-  )
+  return <div></div>;
 }

@@ -1,13 +1,13 @@
-import React, { useContext, useEffect, useState } from 'react'
-import { auth } from '../firebase'
-import { sendSignInLinkToEmail } from 'firebase/auth'
+import React, { useContext, useEffect, useState } from "react";
+import { auth } from "../firebase";
+import { sendSignInLinkToEmail } from "firebase/auth";
 
-const AuthContext = React.createContext()
+const AuthContext = React.createContext();
 
 export function useAuth() {
-    return useContext(AuthContext)
+  return useContext(AuthContext);
 }
 
 export function AuthProvider({ children }) {
-    const [currentUser,setCurrentUser] = useState()
+  const [currentUser, setCurrentUser] = useState();
 }

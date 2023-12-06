@@ -1,210 +1,310 @@
-import React, { useState, useEffect }from 'react'
-import { LineChart,Legend, Line, CartesianGrid,XAxis,YAxis,ReferenceLine, ResponsiveContainer } from 'recharts'
-
-
+import React, { useState, useEffect } from "react";
+import {
+  LineChart,
+  Legend,
+  Line,
+  CartesianGrid,
+  XAxis,
+  YAxis,
+  ReferenceLine,
+  ResponsiveContainer,
+} from "recharts";
 
 export default function GraphPanel(props) {
-  
-  const [graphShow,setGraphShow] = useState(
-    {
-      inputThrottle:true,
-      volts:false,
-      auxVolts:true,
-      amps:true,
-      ampHours:true,
-      motorSpeed:true,
-      speed:false,
-      distance:true,
-      temp1:true,
-      temp2:true,
-      gearRatio:true,
-      gear:true,
-    })
+  const [graphShow, setGraphShow] = useState({
+    inputThrottle: true,
+    volts: false,
+    auxVolts: true,
+    amps: true,
+    ampHours: true,
+    motorSpeed: true,
+    speed: false,
+    distance: true,
+    temp1: true,
+    temp2: true,
+    gearRatio: true,
+    gear: true,
+  });
 
-  const [progress,setProgress] = useState()
-  const [dataSelected,setDataSelected] = useState(props.dataSelected)
-
-  useEffect(()=> {
-    setDataSelected(props.dataSelected)
-  },[props.dataSelected])    
+  const [progress, setProgress] = useState();
+  const [dataSelected, setDataSelected] = useState(props.dataSelected);
 
   useEffect(() => {
-    setProgress(props.progress)
-  }, [props.progress,progress])
-  
+    setDataSelected(props.dataSelected);
+  }, [props.dataSelected]);
+
+  useEffect(() => {
+    setProgress(props.progress);
+  }, [props.progress, progress]);
 
   function handleClick(e) {
-   console.log(e)
+    console.log(e);
     switch (e.dataKey) {
       // INPUT THROTTLE
-      case 'Input throttle (%)':
+      case "Input throttle (%)":
         if (graphShow.inputThrottle == true) {
-          graphShow.inputThrottle=false
-          setGraphShow(graphShow)
+          graphShow.inputThrottle = false;
+          setGraphShow(graphShow);
         } else {
-          graphShow.inputThrottle=true
-          setGraphShow(graphShow)
+          graphShow.inputThrottle = true;
+          setGraphShow(graphShow);
         }
         break;
       // VOLTS
-      case 'Volts (V)':
+      case "Volts (V)":
         if (graphShow.volts == true) {
-          graphShow.volts=false
-          setGraphShow(graphShow)
+          graphShow.volts = false;
+          setGraphShow(graphShow);
         } else {
-          graphShow.volts=true
-          setGraphShow(graphShow)
+          graphShow.volts = true;
+          setGraphShow(graphShow);
         }
         break;
-        // AUX VOLTS
-      case 'Aux volts (V)':
+      // AUX VOLTS
+      case "Aux volts (V)":
         if (graphShow.auxVolts == true) {
-          graphShow.auxVolts=false
-          setGraphShow(graphShow)
+          graphShow.auxVolts = false;
+          setGraphShow(graphShow);
         } else {
-          graphShow.auxVolts=true
-          setGraphShow(graphShow)
+          graphShow.auxVolts = true;
+          setGraphShow(graphShow);
         }
         break;
-      case 'Amps (A)':
+      case "Amps (A)":
         if (graphShow.amps == true) {
-          graphShow.amps=false
-          setGraphShow(graphShow)
+          graphShow.amps = false;
+          setGraphShow(graphShow);
         } else {
-          graphShow.amps=true
-          setGraphShow(graphShow)
+          graphShow.amps = true;
+          setGraphShow(graphShow);
         }
         break;
-      case 'Amp hours (Ah)':
+      case "Amp hours (Ah)":
         if (graphShow.ampHours == true) {
-          graphShow.ampHours=false
-          setGraphShow(graphShow)
+          graphShow.ampHours = false;
+          setGraphShow(graphShow);
         } else {
-          graphShow.ampHours=true
-          setGraphShow(graphShow)
+          graphShow.ampHours = true;
+          setGraphShow(graphShow);
         }
         break;
-      case 'Motor speed (RPM)':
+      case "Motor speed (RPM)":
         if (graphShow.motorSpeed == true) {
-          graphShow.motorSpeed=false
-          setGraphShow(graphShow)
+          graphShow.motorSpeed = false;
+          setGraphShow(graphShow);
         } else {
-          graphShow.motorSpeed=true
-          setGraphShow(graphShow)
+          graphShow.motorSpeed = true;
+          setGraphShow(graphShow);
         }
         break;
-      case 'Speed (m/s)':
+      case "Speed (m/s)":
         if (graphShow.speed == true) {
-          graphShow.speed=false
-          setGraphShow(graphShow)
+          graphShow.speed = false;
+          setGraphShow(graphShow);
         } else {
-          graphShow.speed=true
-          setGraphShow(graphShow)
+          graphShow.speed = true;
+          setGraphShow(graphShow);
         }
         break;
-      case 'Distance (m)':
+      case "Distance (m)":
         if (graphShow.distance == true) {
-          graphShow.distance=false
-          setGraphShow(graphShow)
+          graphShow.distance = false;
+          setGraphShow(graphShow);
         } else {
-          graphShow.distance=true
-          setGraphShow(graphShow)
+          graphShow.distance = true;
+          setGraphShow(graphShow);
         }
         break;
-      case 'Temp1 (C)':
+      case "Temp1 (C)":
         if (graphShow.temp1 == true) {
-          graphShow.temp1=false
-          setGraphShow(graphShow)
+          graphShow.temp1 = false;
+          setGraphShow(graphShow);
         } else {
-          graphShow.temp1=true
-          setGraphShow(graphShow)
+          graphShow.temp1 = true;
+          setGraphShow(graphShow);
         }
         break;
-      case 'Temp2 (C)':
+      case "Temp2 (C)":
         if (graphShow.temp2 == true) {
-          graphShow.temp2=false
-          setGraphShow(graphShow)
+          graphShow.temp2 = false;
+          setGraphShow(graphShow);
         } else {
-          graphShow.temp2=true
-          setGraphShow(graphShow)
+          graphShow.temp2 = true;
+          setGraphShow(graphShow);
         }
         break;
-      case 'Gear ratio':
+      case "Gear ratio":
         if (graphShow.gearRatio == true) {
-          graphShow.gearRatio=false
-          setGraphShow(graphShow)
+          graphShow.gearRatio = false;
+          setGraphShow(graphShow);
         } else {
-          graphShow.gearRatio=true
-          setGraphShow(graphShow)
+          graphShow.gearRatio = true;
+          setGraphShow(graphShow);
         }
         break;
-      case 'Gear':
+      case "Gear":
         if (graphShow.gear == true) {
-          graphShow.gear=false
-          setGraphShow(graphShow)
+          graphShow.gear = false;
+          setGraphShow(graphShow);
         } else {
-          graphShow.gear=true
-          setGraphShow(graphShow)
+          graphShow.gear = true;
+          setGraphShow(graphShow);
         }
-
-      }
-      if (progress==0) {
-        setProgress(1)
-      } else {
-        setProgress(0)
-      }
-      
-     
+    }
+    if (progress == 0) {
+      setProgress(1);
+    } else {
+      setProgress(0);
+    }
   }
-   
+
   const chooseLines = () => {
-    {props.dataSelected.map(name => (
-      <Line type="monotone" dataKey={name} stroke="blue" dot={false} isAnimationActive={false} hide={graphShow[name]} />
-    ))}
-  } 
+    {
+      props.dataSelected.map((name) => (
+        <Line
+          type="monotone"
+          dataKey={name}
+          stroke="blue"
+          dot={false}
+          isAnimationActive={false}
+          hide={graphShow[name]}
+        />
+      ));
+    }
+  };
 
   // need to rework the hide so it reads all the selected lines into dict
-  
+
   // function to generate an array of n hexcodes that are not similar to each other (for the legend)
   function generateColors(n) {
-    var colors = []
+    var colors = [];
     for (var i = 0; i < n; i++) {
-      var color = '#'+Math.floor(Math.random()*16777215).toString(16);
+      var color = "#" + Math.floor(Math.random() * 16777215).toString(16);
       while (colors.includes(color)) {
-        color = '#'+Math.floor(Math.random()*16777215).toString(16);
+        color = "#" + Math.floor(Math.random() * 16777215).toString(16);
       }
-      colors.push(color)
+      colors.push(color);
     }
-    return colors
+    return colors;
   }
-
 
   return (
     <>
-    <ResponsiveContainer width="100%" height={500} classname="">
-    <LineChart data={props.data}>
-        <Line type="monotone" dataKey="Input throttle (%)" stroke="blue" dot={false} isAnimationActive={false} hide={graphShow.inputThrottle}/>
-        <Line type="monotone" dataKey="Volts (V)" stroke="#231651" dot={false}  isAnimationActive={false}  hide={graphShow.volts}/>
-        <Line type="monotone" dataKey="Aux volts (V)" stroke="#4DCCBD" dot={false} isAnimationActive={false} hide={graphShow.auxVolts}/>
-        <Line type="monotone" dataKey="Amps (A)" stroke="#2374AB" dot={false} isAnimationActive={false} hide={graphShow.amps}/>
-        <Line type="monotone" dataKey="Amp hours (Ah)" stroke="#FF8484" dot={false} isAnimationActive={false} hide={graphShow.ampHours}/>
-        <Line type="monotone" dataKey="Motor speed (RPM)" stroke="#380036" dot={false} isAnimationActive={false} hide={graphShow.motorSpeed}/>
-        <Line type="monotone" dataKey="Speed (m/s)" stroke="#FF9B71" dot={false} isAnimationActive={false} hide={graphShow.speed}/>
-        <Line type="monotone" dataKey="Distance (m)" stroke="#40C9A2" dot={false} isAnimationActive={false} hide={graphShow.distance}/>
-        <Line type="monotone" dataKey="Temp1 (C)" stroke="#2F9C95" dot={false} isAnimationActive={false} hide={graphShow.temp1}/>
-        <Line type="monotone" dataKey="Temp2 (C)" stroke="#ACC12F" dot={false} isAnimationActive={false} hide={graphShow.temp2}/>
-        <Line type="monotone" dataKey="Gear ratio" stroke="#82ca9d" dot={false} isAnimationActive={false} hide={graphShow.gearRatio}/>
-        <Line type="monotone" dataKey="Gear" stroke="#A1869E" dot={false} isAnimationActive={false} hide={graphShow.gear}/>
+      <ResponsiveContainer width="100%" height={500} classname="">
+        <LineChart data={props.data}>
+          <Line
+            type="monotone"
+            dataKey="Input throttle (%)"
+            stroke="blue"
+            dot={false}
+            isAnimationActive={false}
+            hide={graphShow.inputThrottle}
+          />
+          <Line
+            type="monotone"
+            dataKey="Volts (V)"
+            stroke="#231651"
+            dot={false}
+            isAnimationActive={false}
+            hide={graphShow.volts}
+          />
+          <Line
+            type="monotone"
+            dataKey="Aux volts (V)"
+            stroke="#4DCCBD"
+            dot={false}
+            isAnimationActive={false}
+            hide={graphShow.auxVolts}
+          />
+          <Line
+            type="monotone"
+            dataKey="Amps (A)"
+            stroke="#2374AB"
+            dot={false}
+            isAnimationActive={false}
+            hide={graphShow.amps}
+          />
+          <Line
+            type="monotone"
+            dataKey="Amp hours (Ah)"
+            stroke="#FF8484"
+            dot={false}
+            isAnimationActive={false}
+            hide={graphShow.ampHours}
+          />
+          <Line
+            type="monotone"
+            dataKey="Motor speed (RPM)"
+            stroke="#380036"
+            dot={false}
+            isAnimationActive={false}
+            hide={graphShow.motorSpeed}
+          />
+          <Line
+            type="monotone"
+            dataKey="Speed (m/s)"
+            stroke="#FF9B71"
+            dot={false}
+            isAnimationActive={false}
+            hide={graphShow.speed}
+          />
+          <Line
+            type="monotone"
+            dataKey="Distance (m)"
+            stroke="#40C9A2"
+            dot={false}
+            isAnimationActive={false}
+            hide={graphShow.distance}
+          />
+          <Line
+            type="monotone"
+            dataKey="Temp1 (C)"
+            stroke="#2F9C95"
+            dot={false}
+            isAnimationActive={false}
+            hide={graphShow.temp1}
+          />
+          <Line
+            type="monotone"
+            dataKey="Temp2 (C)"
+            stroke="#ACC12F"
+            dot={false}
+            isAnimationActive={false}
+            hide={graphShow.temp2}
+          />
+          <Line
+            type="monotone"
+            dataKey="Gear ratio"
+            stroke="#82ca9d"
+            dot={false}
+            isAnimationActive={false}
+            hide={graphShow.gearRatio}
+          />
+          <Line
+            type="monotone"
+            dataKey="Gear"
+            stroke="#A1869E"
+            dot={false}
+            isAnimationActive={false}
+            hide={graphShow.gear}
+          />
 
-        
-        <CartesianGrid stroke='#ccc' />
-        <ReferenceLine  x={Math.floor(progress)} stroke="red" />
-        <ReferenceLine x={Math.floor(props.raceStart)} stroke="black" />
-        <Legend verticalAlign="bottom" height={36} onClick={handleClick}/>
-        <XAxis/>
-        <YAxis type='number' domain={[0,dataMax=>((!graphShow.distance) ? 75000 : dataMax <= 50 ? 50 : 150)]} allowDataOverflow={false}/>
-    </LineChart>
-    </ResponsiveContainer>
+          <CartesianGrid stroke="#ccc" />
+          <ReferenceLine x={Math.floor(progress)} stroke="red" />
+          <ReferenceLine x={Math.floor(props.raceStart)} stroke="black" />
+          <Legend verticalAlign="bottom" height={36} onClick={handleClick} />
+          <XAxis />
+          <YAxis
+            type="number"
+            domain={[
+              0,
+              (dataMax) =>
+                !graphShow.distance ? 75000 : dataMax <= 50 ? 50 : 150,
+            ]}
+            allowDataOverflow={false}
+          />
+        </LineChart>
+      </ResponsiveContainer>
     </>
-  )
+  );
 }

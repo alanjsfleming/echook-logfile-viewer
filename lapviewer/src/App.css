@@ -1,53 +1,52 @@
 body {
   margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
-    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen",
+    "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue",
     sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
 
-html,body {
+html,
+body {
   padding: 0;
   margin: 0;
 }
 
 code {
-  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
+  font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New",
     monospace;
 }
 
-
 #trackCanvas {
-  display:flex;
+  display: flex;
   border: solid 3px lightgrey;
-  box-shadow:5px 5px 5px 1px #888888;
+  box-shadow: 5px 5px 5px 1px #888888;
   margin: 0 auto;
   margin-left: 25px;
-  width:100%;
+  width: 100%;
 }
-
 
 .render-layer1 {
   position: absolute;
-  left:0;
-  top:0;
+  left: 0;
+  top: 0;
   z-index: 0;
 }
 
 .render-layer2 {
   position: absolute;
-  left:0;
-  top:0;
+  left: 0;
+  top: 0;
   z-index: 1;
 }
 
 .top-row {
-  display:grid;
+  display: grid;
   justify-items: center;
   grid-template-columns: 100%;
   grid-column-gap: 0;
-  grid-row-gap: 0.5rem 
+  grid-row-gap: 0.5rem;
 }
 
 @media only screen and (min-width: 1000px) {
@@ -57,12 +56,11 @@ code {
 }
 
 .data-tables-row {
-  display:grid;
+  display: grid;
   justify-items: center;
   grid-template-columns: 100%;
   grid-column-gap: 0;
-  grid-row-gap: 0.5rem
-
+  grid-row-gap: 0.5rem;
 }
 
 .table {
@@ -74,8 +72,7 @@ code {
 @media only screen and (min-width: 900px) {
   .data-tables-row {
     grid-template-columns: 47.5% 47.5%;
-    grid-column-gap:5%;
-
+    grid-column-gap: 5%;
   }
 }
 
@@ -96,21 +93,16 @@ code {
   width: 100%;
 }
 
-.fixed-header th, .fixed-header td {
+.fixed-header th,
+.fixed-header td {
   text-align: center;
   width: 100px;
 }
 
-
-
-
 .renderCanvases {
-
 }
 
-
 .seeking-container {
-  
 }
 
 .livetelembutton {
@@ -120,8 +112,7 @@ code {
 .render-container {
   align-items: center;
   min-width: 520px;
-  min-height:520px;
-
+  min-height: 520px;
 }
 
 .top-row {
@@ -130,50 +121,46 @@ code {
 
 .telemetry-container {
   width: 100%;
-  display:flex;
+  display: flex;
   flex-direction: row;
-  flex-wrap:wrap;
-  align-content:space-between
+  flex-wrap: wrap;
+  align-content: space-between;
 }
 
 .bottom-panel {
-  display:flex;
+  display: flex;
 }
 
 .menu-bar {
-  display:flex;
+  display: flex;
   justify-content: space-between;
- 
 }
 
 .telemetry-card {
-  width:200px;
-  font-size:1.5rem;
-  margin-inline:auto;
+  width: 200px;
+  font-size: 1.5rem;
+  margin-inline: auto;
   margin-top: 0.5em;
 }
-
-
-
 
 /* Gauges */
 
 .gauge-holder {
-  width:90%;
-  margin:auto;
+  width: 90%;
+  margin: auto;
   margin-top: 3%;
 }
 
 .gauge {
-  width:100%;
-  max-width:250px;
+  width: 100%;
+  max-width: 250px;
   color: #009578;
   font-size: 150%;
 }
 
 .gauge-body {
-  width:100%;
-  height:0;
+  width: 100%;
+  height: 0;
   padding-bottom: 50%;
   background: #b4c0be;
   position: relative;
@@ -184,35 +171,33 @@ code {
 
 .gauge-fill {
   position: absolute;
-  top:100%;
-  left:0;
+  top: 100%;
+  left: 0;
   width: inherit;
-  height:100%;
-  background:#009578;
-  transform-origin:center top;
+  height: 100%;
+  background: #009578;
+  transform-origin: center top;
   transform: rotate(0.25turn);
   transition: transform 0.2s ease-out;
 }
 
 .gauge-cover {
-  width:75%;
-  height:150%;
-  background:white;
+  width: 75%;
+  height: 150%;
+  background: white;
   border-radius: 50%;
   position: absolute;
   top: 25%;
   left: 50%;
   transform: translateX(-50%);
-  
+
   /* Text */
-  display:flex;
-  align-items:center;
+  display: flex;
+  align-items: center;
   justify-content: center;
   padding-bottom: 25%;
   box-sizing: border-box;
 }
-
-
 
 .slidecontainer {
   width: 100%; /* Width of the outside container */
@@ -220,17 +205,14 @@ code {
 
 /* The slider itself */
 .slider {
-  -webkit-appearance: none;  /* Override default CSS styles */
+  -webkit-appearance: none; /* Override default CSS styles */
   appearance: none;
   width: 100%; /* Full-width */
   height: 10px; /* Specified height */
   background: #b4c0be; /* Grey background */
   outline: none; /* Remove outline */
   opacity: 1; /* Set transparency (for mouse-over effects on hover) */
-
 }
-
-
 
 /* The slider handle (use -webkit- (Chrome, Opera, Safari, Edge) and -moz- (Firefox) to override default look) */
 .slider::-webkit-slider-thumb {
@@ -249,7 +231,6 @@ code {
   border-radius: 25%;
   background: #009578; /* Green background */
   cursor: pointer; /* Cursor on hover */
-
 }
 
 .footer-links {
@@ -257,11 +238,10 @@ code {
   color: black;
 }
 
-.footer-links:hover{
-  color:black;
+.footer-links:hover {
+  color: black;
   text-decoration: underline;
 }
-
 
 .fullscreen-modal .modal-content {
   position: fixed;
@@ -272,20 +252,19 @@ code {
   background-color: white;
   border-radius: 0;
   border: none;
-
 }
 
 .fullscreen-modal .modal-body {
-  padding:0
+  padding: 0;
 }
 
 .fullscreen-modal .card {
-  padding:1rem;
+  padding: 1rem;
   top: 10%;
   min-width: 350px;
-  max-width:450px;
-  min-height:500px;
-  display:flex;
+  max-width: 450px;
+  min-height: 500px;
+  display: flex;
   flex-direction: column;
   justify-content: space-between;
 }
@@ -296,16 +275,15 @@ code {
   cursor: pointer;
 }
 
-input[type="file"]{
-  display:none;
+input[type="file"] {
+  display: none;
 }
 
 .underline {
   float: left;
-  display:block;
-  color: black ;
+  display: block;
+  color: black;
   text-align: center;
- 
+
   text-decoration: none;
 }
-
