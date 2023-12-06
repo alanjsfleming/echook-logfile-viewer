@@ -116,10 +116,6 @@ export default function FileUpload(props) {
         }
     }
 
-    useEffect(() => {
-       
-    },[dataPoints])
-
     // function to find the origin point of graph (average of coordinates)
     const findOriginOfGraph = (data) => {
         let totalX = 0
