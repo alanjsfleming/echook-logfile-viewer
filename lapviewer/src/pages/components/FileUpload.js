@@ -133,53 +133,7 @@ export default function FileUpload(props) {
         return [originX,originY]
     }
 
-    // alternative function to find origin point of graph by finding the max and min x and y
-    // [-0.7668425, 50.863862] 0.01697779915801719
-    // This doesnt work, I think because its not liking negative numbers???
-    const findMinMaxOfCoordinates = (data) => {
-        const initialValueX = parseFloat(data[0]["Longitude (deg)"])
-        const initialValueY = parseFloat(data[0]["Latitude (deg)"])
 
-        let maxX = [initialValueX,initialValueY]
-        let maxY = [initialValueX,initialValueY]
-        let minX = [initialValueX,initialValueY]
-        let minY = [initialValueX,initialValueY]
-        data.forEach(item => {
-            const x = parseFloat(item["Longitude (deg)"])
-            const y = parseFloat(item["Latitude (deg)"])
-            //console.log(x,y)
-            // check if x > maxX
-            if (x > maxX[0]) {
-                maxX = [x,y]
-            }
-            // check if x < minX
-            if (x < minX[0]) {
-                minX = [x,y]
-            }
-            // check if y > maxY
-            if (y > maxY[1]) {
-                maxY = [x,y]
-            }
-            // check if y < minY
-            if (y < minY[1]) {
-                minY = [x,y]
-            }
-        })
-        //console.log(maxX,maxY,minX,minY)
-        // take average of maxX, maxY, minX, minY
-        const originX = (maxX[0]+minX[0]+maxY[0]+minY[0])/4
-        const originY = (maxX[1]+minX[1]+maxY[1]+minY[1])/4
-        return [originX,originY]
-    }
-
-    // find furthest of the boundary points 
-    const findFurthestBoundary = (data,origin) => {
-        let furthestCoord = []
-        let furthestDistance = 0
-        data.forEach(item => {
-        
-        })
-    }
 
     // function to find the furthest coordinate from the origin
     const findFurthestPoint = (data,origin) => {
