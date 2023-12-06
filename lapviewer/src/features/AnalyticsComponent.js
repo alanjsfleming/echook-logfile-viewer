@@ -5,7 +5,7 @@ import { useHistory, useLocation } from 'react-router-dom';
 import { analytics } from '../firebase';
 
 // In future I possibly want to add a way to log Events?
-// Will I have to disable this if they dont want to be tracked?
+// Will I have to disable this if they dont want to be tracked? yes
 
 export default function AnalyticsComponent() {
 

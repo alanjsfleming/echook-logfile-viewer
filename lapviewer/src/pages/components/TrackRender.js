@@ -10,109 +10,104 @@ import LapDataTable from './LapDataTable'
 
 
 export default function TrackRender(props) {
-    // comment this thing!!!
-    //initialise variables so it doesnt break before loading file
-
-    const canvasRef=useRef(null)
-    const canvasLayer2Ref=useRef(null)
-    const progressSlider=useRef()
-    const mainSettingsRef=useRef()
-
-    const [currentData,updateCurrentData]=useState([])
-   
-    const [playbackStatus,setPlaybackStatus]=useState(false)
-    const [playbackProgress, setPlaybackProgress] = useState()
-    const [loading,completeLoading] = useState(true)
-    const [playbackSpeed,setPlaybackSpeed] = useState(1)
-    const [raceStart,setRaceStart] = useState()
-    const [dataMetrics,setDataMetrics] = useState()
-    const [layoutSettings,setLayoutSettings] = useState({  })
-
-    const [lapStarts,setLapStarts] = useState([])
-
-
-    useEffect(()=>{
-      updateCurrentData(props.data[0])
-      setPlaybackProgress(0)
-      setRaceStart(0)
-      completeLoading(false)
-    },[])
-    
-    useEffect(()=>{
-      if (props.data.length>0){
-        setDataMetrics(Object.keys(props.data[0]))
-      }
-    },[props.data])
-   
-    useEffect(()=>{
-      setLayoutSettings(dataMetrics)
-     
-    },[dataMetrics])
-
-
-
-    function handleRaceStart(e) {
-      setRaceStart(playbackProgress)
-      console.log(raceStart)
-    }
-
-    function handle1xPlaybackSpeed(e) {
-      setPlaybackSpeed(300)
-    }
-
-    function handle10xPlaybackSpeed(e) {
-      setPlaybackSpeed(30)
-    }
-
-    function handle100xPlaybackSpeed(e) {
-      setPlaybackSpeed(1)
-    }
-
-    function handleGoToStart(e){
-      setPlaybackProgress(raceStart)
-      updateCurrentData(props.data[playbackProgress])
-    }
-
-    function handleSaveSettings(e) {
-      return
-    }
-
-    function convertTimestamp(timestamp){
-      const date = new Date(Number(timestamp))
   
-      return date.toLocaleString()
+  const progressSlider=useRef()
+  const mainSettingsRef=useRef()
+
+  const [currentData,updateCurrentData]=useState([])
+   
+  const [playbackStatus,setPlaybackStatus]=useState(false)
+  const [playbackProgress, setPlaybackProgress] = useState()
+  const [loading,completeLoading] = useState(true)
+  const [playbackSpeed,setPlaybackSpeed] = useState(1)
+  const [raceStart,setRaceStart] = useState()
+  const [dataMetrics,setDataMetrics] = useState()
+  const [layoutSettings,setLayoutSettings] = useState({  })
+
+  const [lapStarts,setLapStarts] = useState([])
+
+
+  useEffect(()=>{
+    updateCurrentData(props.data[0])
+    setPlaybackProgress(0)
+    setRaceStart(0)
+    completeLoading(false)
+  },[])
+    
+  useEffect(()=>{
+    if (props.data.length>0){
+      setDataMetrics(Object.keys(props.data[0]))
+    }
+  },[props.data])
+   
+  useEffect(()=>{
+    setLayoutSettings(dataMetrics)
+  },[dataMetrics])
+
+
+
+  function handleRaceStart(e) {
+    setRaceStart(playbackProgress)
+    console.log(raceStart)
   }
 
-    // When progress slider changed, should change the current point to whatever that is and play.
-    function handleSeekChange(event) {
-      if (props.data[0]) {
-        const index = Math.floor(event.target.value/1000 *props.data.length)
-        // I think this line might disable the playing
-        //setPlaybackStatus(false)
-        if (props.data[index]) {
-          updateCurrentData(props.data[index])
-          setPlaybackProgress(index)
-        }
-        
+  function handle1xPlaybackSpeed(e) {
+    setPlaybackSpeed(300)
+  }
+
+  function handle10xPlaybackSpeed(e) {
+    setPlaybackSpeed(30)
+  }
+
+  function handle100xPlaybackSpeed(e) {
+    setPlaybackSpeed(1)
+  }
+
+  function handleGoToStart(e){
+    setPlaybackProgress(raceStart)
+    updateCurrentData(props.data[playbackProgress])
+  }
+
+  function handleSaveSettings(e) {
+    return
+  }
+
+  function convertTimestamp(timestamp){
+    const date = new Date(Number(timestamp))
+  
+    return date.toLocaleString()
+   }
+
+  // When progress slider changed, should change the current point to whatever that is and play.
+  function handleSeekChange(event) {
+    if (props.data[0]) {
+      const index = Math.floor(event.target.value/1000 *props.data.length)
+      // I think this line might disable the playing
+      //setPlaybackStatus(false)
+      if (props.data[index]) {
+        updateCurrentData(props.data[index])
+        setPlaybackProgress(index)
       }
+        
     }
+  }
 
     // Toggle play/pause state
-    function handlePlayPause(event) {
-      if (playbackStatus==true) {
-        // Pause
-        setPlaybackStatus(false)
-        console.log(progressSlider)
+  function handlePlayPause(event) {
+    if (playbackStatus==true) {
+      // Pause
+      setPlaybackStatus(false)
+      console.log(progressSlider)
         
         
-      } else {
-        // Play
-        setPlaybackStatus(true,playThrough())
-      }
+    } else {
+      // Play
+      setPlaybackStatus(true,playThrough())
     }
+  }
 
     // Show Play/Pause in button depending on state
-   function showPlayPauseButton() {
+  function showPlayPauseButton() {
     if (playbackStatus) {
       return <span>Pause</span>
     } else {
@@ -120,13 +115,13 @@ export default function TrackRender(props) {
     }
    }
   
-   // this block doesnt work - rethink
-   // setState doesnt update immediately so it doesnt take the playbackStatus value correctly. 
-   // for same reason it only takes the playbackProgress of when it was initiated, doesnt update and read next value each time.
-    function playThrough(){
-      console.log(playbackStatus)
-      const playingInterval = setInterval(function(){
-        if (playbackStatus) {
+  // this block doesnt work - rethink
+  // setState doesnt update immediately so it doesnt take the playbackStatus value correctly. 
+  // for same reason it only takes the playbackProgress of when it was initiated, doesnt update and read next value each time.
+  function playThrough(){
+    console.log(playbackStatus)
+    const playingInterval = setInterval(function(){
+    if (playbackStatus) {
           clearInterval(playingInterval)
         }
 
