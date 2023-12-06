@@ -20,7 +20,7 @@ You can ```git clone``` this repo and run it locally, or you can use the hosted 
 
 ### Use the hosted version
 
-Simply go to the hosted site at [https://vis.dashowl.co.uk](https://vis.dashowl.co.uk).
+Go to the hosted site at [https://vis.dashowl.co.uk](https://vis.dashowl.co.uk).
 
 ### Upload a logfile
 
