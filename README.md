@@ -92,3 +92,4 @@ The program is expecting these following data headings. If you have a different 
 - Mobile responsive
 - Easier way to clean extra data by selecting start day and time, and end day and time.
 - More flexible graphing options
+- Set up online account for saving logfile and presets to stop having to upload the same logfile each time.
