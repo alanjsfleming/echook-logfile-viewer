@@ -1,6 +1,6 @@
 # eChook Logfile Viewer
 
-This could be useful for anyone who uses an eChook to log data. I volunteer the Green Arrows Formula 24 team and we use an eChook to log data from the car.
+This could be useful for anyone who uses an [eChook](https://github.com/echook) to log data. I volunteer with the Green Arrows Formula 24 team and we use an eChook to log data from the car.
 
 I spent a lot of time trying to get the eChook data into a format that was clear to understand on Excel. 
 
