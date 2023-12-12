@@ -36,10 +36,10 @@ export default function TrackMap(props) {
     <>
       <Map
         center={center}
-        zoom={15}
+        zoom={16}
         animate={false}
         style={{ width: "100%" }}
-        height={300}
+        height={"100%"}
       >
         <Marker anchor={coords} color="#009578" width={50} />
         <button class="btn btn-outline-dark" onClick={handleRecentre}>

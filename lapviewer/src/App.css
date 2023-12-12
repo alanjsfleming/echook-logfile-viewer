@@ -17,6 +17,26 @@ code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New",
     monospace;
 }
+@media (max-width: 600px) {
+  .form-group {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+  .form-group .col {
+    margin-bottom: 10px;
+  }
+  .form-group .col:first-child {
+    font-weight: bold;
+    margin-bottom: 5px;
+  }
+  .form-group .col:not(:first-child) {
+    margin-left: 20px;
+  }
+  .form-group .col input,
+  .form-group .col select {
+    width: 100%;
+  }
+}
 
 #trackCanvas {
   display: flex;

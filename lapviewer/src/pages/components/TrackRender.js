@@ -31,7 +31,7 @@ export default function TrackRender(props) {
 
   useEffect(() => {
     if (props.data.length > 0) {
-      setDataMetrics(Object.keys(props.data[0]));
+      setDataMetrics(initialiseMetrics(Object.keys(props.data[0])));
     }
   }, [props.data]);
 
@@ -139,7 +139,40 @@ export default function TrackRender(props) {
   // add: upper, lower, vis type
   // when click save then set state to object { 'V1' : { enabled: true, type: 'gauge', upper: 30, lower: 0 },
   //                                                 ...  }
-  const DataSettingsComponent = ({ dataMetrics }) => (
+  
+  function initialiseMetrics(keys) {
+    const metrics = {};
+    keys.forEach(metric => {
+      metrics[metric] = { name: metric, enabled: true, type: 'gauge', maxValue: 30, minValue: 0 };
+    });
+    return metrics;
+  }
+
+  useEffect(() => {
+    console.log(dataMetrics);
+  }, [dataMetrics]);
+
+  const handleSave = () => {
+    const newMetrics = {};
+    for (let metric of Object.keys(dataMetrics)) {
+      const graphField = mainSettingsRef.current[metric + 'Graph'];
+      const typeField = mainSettingsRef.current[metric + 'Type'];
+      const maxValueField = mainSettingsRef.current[metric + 'MaxValue'];
+      const minValueField = mainSettingsRef.current[metric + 'MinValue'];
+  
+      newMetrics[metric] = {
+        ...dataMetrics[metric],
+        graph: graphField ? graphField.checked : dataMetrics[metric].graph,
+        type: typeField ? typeField.value : dataMetrics[metric].type,
+        maxValue: maxValueField ? maxValueField.value : dataMetrics[metric].maxValue,
+        minValue: minValueField ? minValueField.value : dataMetrics[metric].minValue,
+      };
+    }
+  
+    setDataMetrics(newMetrics);
+  };
+
+  const DataSettingsComponent = () => (
     <form class="form" ref={mainSettingsRef}>
       <div class="row form-group">
         <div class="col text-center">Name</div>
@@ -148,28 +181,31 @@ export default function TrackRender(props) {
         <div class="col text-center">Max value</div>
         <div class="col text-center">Min value</div>
       </div>
-
-      {dataMetrics.map((metric) => (
+      {Object.keys(dataMetrics).map((metric) => (
         <div class="row form-group">
-          <div class="col m-auto d-flex justify-content-center">{metric}</div>
+          <div class="col m-auto d-flex justify-content-center">{dataMetrics[metric].name}</div>
 
           <div class="col m-auto form-check-inline d-flex justify-content-center">
-            <input name={metric} type="checkbox" />
+            <input name={`${dataMetrics[metric].name}Graph`} defaultChecked={dataMetrics[metric].graph} type="checkbox" />
           </div>
 
-          <div class="col m-auto form-check-inline d-flex justify-content-center">
-            <input name={metric} type="checkbox" defaultChecked={true} />
+          <div className="col m-auto form-check-inline d-flex justify-content-center">
+            <select name={`${dataMetrics[metric].name}Type`} defaultValue={dataMetrics[metric].type}>
+              <option value="Gauge">Gauge</option>
+              <option value="Bar">Bar</option>
+              <option value="Number">Number</option>
+            </select>
           </div>
 
           <div class="col m-auto d-flex justify-content-center">
-            <input name={metric} type="number" step="1" defaultValue="30" />
+            <input name={`${dataMetrics[metric].name}MaxValue`} defaultValue={dataMetrics[metric].maxValue} type="number" step="1"/>
           </div>
 
           <div class="col m-auto d-flex justify-content-center">
-            <input name={metric} type="number" step="1" defaultValue="0" />
+            <input name={`${dataMetrics[metric].name}MinValue`} defaultValue={dataMetrics[metric].minValue} type="number" step="1"/>
           </div>
         </div>
-      ))}
+))}
     </form>
   );
 
@@ -203,10 +239,10 @@ export default function TrackRender(props) {
                 </button>
               </div>
               <div class="modal-body">
-                <button class="btn btn-outline-primary btn-block">
+                <button hidden class="btn btn-outline-primary btn-block">
                   Create free account to save setup between sessions
                 </button>
-                <button class="btn btn-primary btn-block">Save settings</button>
+                <button class="btn btn-primary btn-block" onClick={handleSave}>Save settings</button>
                 <br></br>
 
                 <h5>Map</h5>
@@ -238,8 +274,12 @@ export default function TrackRender(props) {
           </div>
         </div>
 
+        <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#settingsModalCenter">
+  Open Settings
+</button>
+
         <div class="top-row">
-          <div className="w-100">
+          <div className="w-100 h-100">
             <TrackMap
               currentData={currentData}
               latitude={currentData["Latitude (deg)"]}
