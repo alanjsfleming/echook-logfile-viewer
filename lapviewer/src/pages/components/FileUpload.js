@@ -50,7 +50,9 @@ export default function FileUpload(props) {
                     ...prevSetupData,
                     trackDistance:value
                 }))
-
+                break
+            default:
+                console.log('error')
         }
     }
 
@@ -61,6 +63,9 @@ export default function FileUpload(props) {
                 break
             case "50%":
                 setFormProgress("100%")
+                break
+            default:
+                console.log('error')
         }
     }
 
@@ -72,6 +77,8 @@ export default function FileUpload(props) {
             case "50%":
                 setFormProgress("0%")
                 break
+            default:
+                console.log('error')
         }
     }
 
@@ -192,128 +199,57 @@ export default function FileUpload(props) {
 
   return (
     <>
-    <div class={"modal fade fullscreen-modal"  + (modalShow && " show d-block")} id="fileUploadModalCenter" tabindex="-1" role="dialog" aria-labelledby="fileUploadModalTitle" aria-hidden={!modalShow}>
-          <div class="modal-dialog modal-dialog-centered" role="document">
-            <div class="modal-content">
-              <div class="modal-body">
-                <GetAccessMenu />
-                <div class="card w-50 text-center m-auto">
-              
-                    <div class="uploadFormContent">
-                       
-                            <div class="progress">
-                                <div class="progress-bar" role="progressbar" style={{width:formProgress}} aria-valuenow={formProgress} aria-valuemin="0" aria-valuemax="3"></div>
-                            </div>
-                            <br></br>
-                            <h1>Start</h1>
-                            <br></br>
-                         
-                            <div class="tab" hidden={!(formProgress==="0%")}>
-                                <h5>Car setup:</h5>
-                                <div class="form-group">
-                                    <label for="carName">Car name:</label>
-                                    <input type="text" onChange={handleChangeSetupData} class="form-control text-center" id="carName" name="carName" defaultValue="My Car" placeholder="My Car" />
+        <div class={"modal fade fullscreen-modal"  + (modalShow && " show d-block")} id="fileUploadModalCenter" tabindex="-1" role="dialog" aria-labelledby="fileUploadModalTitle" aria-hidden={!modalShow}>
+            <div class="modal-dialog modal-dialog-centered" role="document">
+                <div class="modal-content">
+                    <div class="modal-body">
+                        <GetAccessMenu />
+                        <div class="card w-50 text-center m-auto">
+                            <div class="uploadFormContent">       
+                                <div class="progress">
+                                    <div class="progress-bar" role="progressbar" style={{width:formProgress}} aria-valuenow={formProgress} aria-valuemin="0" aria-valuemax="3"></div>
                                 </div>
-                                <div class="form-group">
-                                    <label for="carAmpHours">Battery Capacity (Ah):</label>
-                                    <input type="number" onChange={handleChangeSetupData} class="form-control text-center" id="carAmpHours" name="carAmpHours" defaultValue="30" />
-                                </div>
+                                <br></br>
+                                <h1>Start</h1>
+                                <br></br>
+                                <div class="tab" hidden={!(formProgress==="0%")}>
+                                    <h5>Car setup:</h5>
+                                    <div class="form-group">
+                                        <label for="carName">Car name:</label>
+                                        <input type="text" onChange={handleChangeSetupData} class="form-control text-center" id="carName" name="carName" defaultValue="My Car" placeholder="My Car" />
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="carAmpHours">Battery Capacity (Ah):</label>
+                                        <input type="number" onChange={handleChangeSetupData} class="form-control text-center" id="carAmpHours" name="carAmpHours" defaultValue="30" />
+                                    </div>
 
-                                <h5>eChook Logfile:</h5>
-                                <div class="form-group">
-                                <p>File:</p>
-                                    <label class={(uploadedFileName) ? "custom-file btn-outline-primary btn" : "custom-file btn-primary btn"} for="fileUpload">
-                                
+                                    <h5>eChook Logfile:</h5>
+                                    <div class="form-group">
+                                        <p>File:</p>
+                                        <label class={(uploadedFileName) ? "custom-file btn-outline-primary btn" : "custom-file btn-primary btn"} for="fileUpload">
                                         <input type="file" id="fileUpload" name="fileUpload" ref={fileUploadRef} accept=".csv" onChange={fileUploaded} />
                                         {(uploadedFileName) ? uploadedFileName : 'Select File'}
-                                    </label>
+                                        </label>
+                                    </div>
                                 </div>
+                            </div>   
+                            <br></br>
+                            <div class="btn-group">   
+                                <button onClick={handleUploadFormSubmit} disabled={!uploadedFileName} class={(uploadedFileName) ? "btn btn-primary col-12" : "btn btn-outline-primary col-12"}>Analyse</button>
                             </div>
-                    
-                            
-
-                           
-
+                            <div class="parameters" hidden>
+                                <label for="scale">Render scale (40 recommended): {renderScale} </label>
+                                <input type="range" id="scale" name="scale" defaultValue={40} onChange={handleChangeScale} min="1" max="50"/>
+                                <br></br>               
+                            </div>
                         </div>
-                   
-                    <br></br>
-                        <div class="btn-group">
-                           
-                            <button onClick={handleUploadFormSubmit} disabled={!uploadedFileName} class={(uploadedFileName) ? "btn btn-primary col-12" : "btn btn-outline-primary col-12"}>Analyse</button>
-                        </div>
-                        
-                  
-              
-
-                <div class="parameters" hidden>
-
-                    <label for="scale">Render scale (40 recommended): {renderScale} </label>
-                    <input type="range" id="scale" name="scale" defaultValue={40} onChange={handleChangeScale} min="1" max="50"/>
-                    <br></br>               
+                    </div> 
                 </div>
-                </div>
-              </div> 
             </div>
-          </div>
         </div>
 
-
-
-    
-        
-
-    {!hasDataPoints() && <h3 class="text-center loading-screen">analysing file...</h3>}
-    {hasDataPoints() && <TrackRender id="trackCanvas" data={dataPoints} setupData={setupData} />}
+        {!hasDataPoints() && <h3 class="text-center loading-screen">analysing file...</h3>}
+        {hasDataPoints() && <TrackRender id="trackCanvas" data={dataPoints} setupData={setupData} />}
     </>
   )
 }
-
-/*
- <div class="form-group">
-                                    <p>Sampling Rate:</p>
-                                    <label for="samplingRate">Sampling Rate:</label>
-                                    <input type="number" id="samplingRate" name="samplingRate" onChange={handleSampleRateChange} class="form-control text-center" defaultValue={100} />
-                                </div>
-                                function handleSampleRateChange(e) {
-        setSampleDownscale(e.target.value)
-    }*/
-
-    /*
-    <div class="tab" hidden={!(formProgress==="50%")}>
-                                <h5>Track setup:</h5>
-                                <div class="form-group">
-                                    <label for="trackDistanceSelect">Track:</label>
-                                    <select class="form-control text-center" onChange={handleChangeSetupData} name="trackDistanceSelect">
-                                        <option value="2478">Aintree</option>
-                                        <option value="418">Alford</option>
-                                        <option value="1287">Anglesea</option>
-                                        <option value="2350">Aragon</option>
-                                        <option value="3700">Barber Motor Sports Park</option>
-                                        <option value="1979">Bedford</option>
-                                        <option value="1287">Blyton Park</option>
-                                        <option value="1232">Cartagena</option>
-                                        <option value="2977">Castle Combe</option>
-                                        <option value="660">Chambers County</option>
-                                        <option value="610">Chattanooga GP</option>
-                                        <option value="1610">Choccolocco Green Prix</option>
-                                        <option value="1851">Croft</option>
-                                        <option value="1070">Columbus GP</option>
-                                        <option value="1110">Divers Power Grand Prix</option>
-                                        <option value="1255">Dunsfold</option>
-                                        <option value="1834">East Fortune</option>
-                                        <option value="1642">Ford Dunton</option>
-                                        <option value="3862">Goodwood</option>
-                                        <option value="1690">Grissom</option>
-                                        <option value="3492">Hethel</option>
-                                        <option value="1610">Jemison Toyota Classic</option>
-                                        <option value="1609">Mallory Park</option>
-                                        <option value="1130">MSR Houston</option>
-                                        <option value="2639">Navarra</option>
-                                        <option value="2414">Predannack</option>
-                                        <option value="2639">Silverstone</option>
-                                        <option value="2200">Talladega</option>
-                                    </select>
-                                    <br></br>
-                                    <input ref={trackDistanceFieldRef} type="number" class="form-control text-center" id="trackDistance" onChange={handleChangeSetupData} name="trackDistance" placeholder={setupData.trackDistance + "m ( or enter custom track length )"} />
-                                </div>
-                            </div>*/
