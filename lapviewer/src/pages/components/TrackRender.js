@@ -62,7 +62,7 @@ export default function TrackRender(props) {
   }
 
   function handleSaveSettings(e) {
-    return;
+    return
   }
 
   function convertTimestamp(timestamp) {
