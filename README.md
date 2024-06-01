@@ -6,8 +6,6 @@ I spent a lot of time trying to get the eChook data into a format that was clear
 
 I wanted to be able to see the data in a more visual way, and to be able to see the data from multiple laps at once and compare them. 
 
-<p><a href="https://www.buymeacoffee.com/alanjsfleming"> <img align="left" src="https://cdn.buymeacoffee.com/buttons/v2/default-yellow.png" height="50" width="210" alt="alanjsfleming" /></a></p><br><br>
-
 ## Usage 
 
 You can ```git clone``` this repo and run it locally, or you can use the hosted version at [https://vis.dashowl.co.uk](https://vis.dashowl.co.uk).
